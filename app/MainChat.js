@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Chat from './Chat';
+import Controls from './Controls';
 import PinnedFriends from './PinnedFriends';
 
 export default function MainChat() {
@@ -50,8 +51,8 @@ export default function MainChat() {
 
       <View style={styles.friendContainer}>
         <PinnedFriends
-          profilePicture={require('./assets/rick.jpeg')}
-          name='Rick'
+          profilePicture={require('./assets/kirby.png')}
+          name='Kirby'
         />
         <PinnedFriends
           profilePicture={require('./assets/one.jpeg')}
@@ -73,12 +74,19 @@ export default function MainChat() {
         <Chat />
         <Chat />
         <Chat />
+        <Chat />
+        <Chat />
+        <Chat />
       </View>
+
+      {/* Controls */}
+      <Controls />
     </View>
   );
 }
 
-// Style //
+//// Style ////
+
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,

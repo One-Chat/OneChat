@@ -12,7 +12,7 @@ export default function PinnedFriends({ profilePicture, name }) {
   );
 }
 
-//style//
+//// Style ////
 
 const styles = StyleSheet.create({
   container: {
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     flex: 1,
     top: 10,
     alignSelf: 'center',
-    width: '70%',
+    width: '65%',
     borderRadius: 50,
   },
   name: {

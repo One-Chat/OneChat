@@ -15,26 +15,30 @@ export default function Chat() {
   );
 }
 
+//// Style ////
+
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     margin: '4%',
     alignSelf: 'center',
     width: '90%',
-    height: '10%',
+    height: '11%',
     borderBottomWidth: 1,
     borderBottomColor: 'lightgray',
   },
 
   pictures: {
-    margin: '3%',
-    height: '70%',
+    height: '80%',
     width: '12%',
+    marginRight: '3%',
+    alignSelf: 'center',
     borderRadius: 100,
   },
   info: {
-    justifyContent: 'space-around',
-    margin: '3%',
+    justifyContent: 'space-evenly',
+
+    padding: 5,
   },
   time: {
     flex: 1,
