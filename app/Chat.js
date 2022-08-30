@@ -6,10 +6,11 @@ export default function Chat() {
     <View style={styles.container}>
       <Image source={require('./assets/mobu.png')} style={styles.pictures} />
       <View style={styles.info}>
-        <Text style={{ fontFamily: 'fira-sans-bold', fontSize: 18 }}>Mobu</Text>
+        <Text style={{ fontFamily: 'fira-sans-bold', fontSize: '18rem' }}>
+          Mobu
+        </Text>
         <Text style={{ color: 'gray' }}>Typing ...</Text>
       </View>
-
       <Text style={styles.time}>12:45</Text>
     </View>
   );
@@ -19,26 +20,26 @@ export default function Chat() {
 
 const styles = StyleSheet.create({
   container: {
+    padding: '4%',
     flexDirection: 'row',
     margin: '4%',
     alignSelf: 'center',
     width: '90%',
-    height: '11%',
+    height: 'auto',
     borderBottomWidth: 1,
     borderBottomColor: 'lightgray',
   },
 
   pictures: {
-    height: '80%',
+    height: '100%',
     width: '12%',
-    marginRight: '3%',
+    marginRight: '5%',
     alignSelf: 'center',
     borderRadius: 100,
   },
   info: {
     justifyContent: 'space-evenly',
-
-    padding: 5,
+    // padding: 5,
   },
   time: {
     flex: 1,

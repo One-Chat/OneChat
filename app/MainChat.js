@@ -7,6 +7,7 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 import Chat from './Chat';
 import Controls from './Controls';
@@ -70,13 +71,21 @@ export default function MainChat() {
 
       {/* Chats */}
       <View style={styles.chatContainer}>
-        <Chat />
-        <Chat />
-        <Chat />
-        <Chat />
-        <Chat />
-        <Chat />
-        <Chat />
+        <ScrollView>
+          <Chat />
+          <Chat />
+          <Chat />
+          <Chat />
+          <Chat />
+          <Chat />
+          <Chat />
+          <Chat />
+          <Chat />
+          <Chat />
+          <Chat />
+          <Chat />
+          <Chat />
+        </ScrollView>
       </View>
 
       {/* Controls */}

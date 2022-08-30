@@ -36,11 +36,9 @@ export default function App() {
     return null;
   }
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <View style={styles.container} onLayout={onLayoutRootView}>
-        <MainChat />
-      </View>
-    </TouchableWithoutFeedback>
+    <View style={styles.container} onLayout={onLayoutRootView}>
+      <MainChat />
+    </View>
   );
 }
 
