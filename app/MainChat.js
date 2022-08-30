@@ -86,10 +86,8 @@ export default function MainChat() {
           <Chat />
           <Chat />
         </ScrollView>
+        <Controls />
       </View>
-
-      {/* Controls */}
-      <Controls />
     </View>
   );
 }

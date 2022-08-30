@@ -17,10 +17,12 @@ export default function Controls() {
 
 const styles = StyleSheet.create({
   controlContainer: {
+    flex: 1,
+    position: 'absolute',
+    bottom: 0,
     flexDirection: 'row',
-    flex: 1.5,
     marginBottom: '10%',
-    height: '20%',
+    height: '8%',
     width: '80%',
     alignSelf: 'center',
     borderRadius: 50,
@@ -28,16 +30,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   image: {
-    zIndex: 10,
     alignSelf: 'center',
     height: 30,
     width: 30,
   },
   profile: {
-    zIndex: 10,
     alignSelf: 'center',
-    height: 60,
-    width: 60,
+    height: 80,
+    width: 80,
     borderRadius: 100,
     borderColor: 'white',
     borderWidth: 2,
