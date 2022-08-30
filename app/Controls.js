@@ -1,15 +1,16 @@
 import React from 'react';
 import { View, StyleSheet, Image } from 'react-native';
+import { BlurView } from 'expo-blur';
 
 export default function Controls() {
   return (
-    <View style={styles.controlContainer}>
+    <BlurView intensity={20} tint='dark' style={styles.controlContainer}>
       <Image source={require('./assets/chat.png')} style={styles.image} />
       <Image source={require('./assets/telephone.png')} style={styles.image} />
       <Image source={require('./assets/rick.jpeg')} style={styles.profile} />
       <Image source={require('./assets/community.png')} style={styles.image} />
       <Image source={require('./assets/gear.png')} style={styles.image} />
-    </View>
+    </BlurView>
   );
 }
 
@@ -17,6 +18,7 @@ export default function Controls() {
 
 const styles = StyleSheet.create({
   controlContainer: {
+    zIndex: 5,
     flex: 1,
     position: 'absolute',
     bottom: 0,
@@ -25,8 +27,9 @@ const styles = StyleSheet.create({
     height: '8%',
     width: '80%',
     alignSelf: 'center',
+    overflow: 'hidden',
     borderRadius: 50,
-    backgroundColor: 'rgba(58, 64, 60, 0.6)',
+
     justifyContent: 'space-around',
   },
   image: {
@@ -36,8 +39,9 @@ const styles = StyleSheet.create({
   },
   profile: {
     alignSelf: 'center',
-    height: 80,
-    width: 80,
+    height: 55,
+    width: 55,
+
     borderRadius: 100,
     borderColor: 'white',
     borderWidth: 2,
