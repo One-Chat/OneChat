@@ -13,7 +13,7 @@ import Chat from './Chat';
 import Controls from './Controls';
 import PinnedFriends from './PinnedFriends';
 
-export default function MainChat() {
+export default function MainChat({ navigation }) {
   const [text, onChangeText] = useState('');
 
   return (
@@ -99,7 +99,7 @@ export default function MainChat() {
           <Chat />
         </View>
       </ScrollView>
-      <Controls />
+      <Controls navigation={navigation} />
     </View>
   );
 }
