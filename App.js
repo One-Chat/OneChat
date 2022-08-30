@@ -1,11 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useCallback } from 'react';
-import {
-  View,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  Keyboard,
-} from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import MainChat from './app/MainChat';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';

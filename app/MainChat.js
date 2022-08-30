@@ -35,53 +35,53 @@ export default function MainChat() {
       </SafeAreaView>
 
       {/* search input */}
-      <View style={styles.searchSection}>
-        <Image
-          source={require('./assets/icon-search.png')}
-          style={styles.searchIcon}
-        />
-        <TextInput
-          placeholder='Search Chat ...'
-          onChangeText={onChangeText}
-          value={text}
-          style={styles.textInput}
-        />
-      </View>
+      <ScrollView style={{ flex: 1 }}>
+        <View style={styles.searchSection}>
+          <Image
+            source={require('./assets/icon-search.png')}
+            style={styles.searchIcon}
+          />
+          <TextInput
+            placeholder='Search Chat ...'
+            onChangeText={onChangeText}
+            value={text}
+            style={styles.textInput}
+          />
+        </View>
 
-      {/* Pinned Friends */}
+        {/* Pinned Friends */}
 
-      <View style={styles.friendContainer}>
-        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          <PinnedFriends
-            profilePicture={require('./assets/kirby.png')}
-            name='Kirby'
-          />
-          <PinnedFriends
-            profilePicture={require('./assets/one.jpeg')}
-            name='Saitama'
-          />
-          <PinnedFriends
-            profilePicture={require('./assets/mobu.png')}
-            name='Mobu'
-          />
-          <PinnedFriends
-            profilePicture={require('./assets/bart.png')}
-            name='Bart'
-          />
-          <PinnedFriends
-            profilePicture={require('./assets/bart.png')}
-            name='Bart'
-          />
-          <PinnedFriends
-            profilePicture={require('./assets/bart.png')}
-            name='Bart'
-          />
-        </ScrollView>
-      </View>
+        <View style={styles.friendContainer}>
+          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+            <PinnedFriends
+              profilePicture={require('./assets/kirby.png')}
+              name='Kirby'
+            />
+            <PinnedFriends
+              profilePicture={require('./assets/one.jpeg')}
+              name='Saitama'
+            />
+            <PinnedFriends
+              profilePicture={require('./assets/mobu.png')}
+              name='Mobu'
+            />
+            <PinnedFriends
+              profilePicture={require('./assets/bart.png')}
+              name='Bart'
+            />
+            <PinnedFriends
+              profilePicture={require('./assets/bart.png')}
+              name='Bart'
+            />
+            <PinnedFriends
+              profilePicture={require('./assets/bart.png')}
+              name='Bart'
+            />
+          </ScrollView>
+        </View>
 
-      {/* Chats */}
-      <View style={styles.chatContainer}>
-        <ScrollView>
+        {/* Chats */}
+        <View style={styles.chatContainer}>
           {/* TEST .... */}
           <Chat />
           <Chat />
@@ -91,9 +91,15 @@ export default function MainChat() {
           <Chat />
           <Chat />
           <Chat />
-        </ScrollView>
-        <Controls />
-      </View>
+          <Chat />
+          <Chat />
+          <Chat />
+          <Chat />
+          <Chat />
+          <Chat />
+        </View>
+      </ScrollView>
+      <Controls />
     </View>
   );
 }
@@ -106,7 +112,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   title: {
-    flex: 1,
+    flex: 0.05,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },

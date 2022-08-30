@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
   container: {
     marginHorizontal: 5,
     width: 80,
+    height: 100,
     borderRadius: 10,
     backgroundColor: '#F0ECE3',
   },
@@ -25,7 +26,8 @@ const styles = StyleSheet.create({
     flex: 1,
     top: 10,
     alignSelf: 'center',
-    width: '70%',
+    width: '50%',
+
     borderRadius: 50,
   },
   name: {
