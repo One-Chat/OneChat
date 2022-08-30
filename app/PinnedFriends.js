@@ -16,8 +16,8 @@ export default function PinnedFriends({ profilePicture, name }) {
 
 const styles = StyleSheet.create({
   container: {
-    height: '100%',
-    width: '20%',
+    marginHorizontal: 5,
+    width: 80,
     borderRadius: 10,
     backgroundColor: '#F0ECE3',
   },
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     flex: 1,
     top: 10,
     alignSelf: 'center',
-    width: '65%',
+    width: '70%',
     borderRadius: 50,
   },
   name: {

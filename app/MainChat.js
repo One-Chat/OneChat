@@ -51,32 +51,38 @@ export default function MainChat() {
       {/* Pinned Friends */}
 
       <View style={styles.friendContainer}>
-        <PinnedFriends
-          profilePicture={require('./assets/kirby.png')}
-          name='Kirby'
-        />
-        <PinnedFriends
-          profilePicture={require('./assets/one.jpeg')}
-          name='Saitama'
-        />
-        <PinnedFriends
-          profilePicture={require('./assets/mobu.png')}
-          name='Mobu'
-        />
-        <PinnedFriends
-          profilePicture={require('./assets/bart.png')}
-          name='Bart'
-        />
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+          <PinnedFriends
+            profilePicture={require('./assets/kirby.png')}
+            name='Kirby'
+          />
+          <PinnedFriends
+            profilePicture={require('./assets/one.jpeg')}
+            name='Saitama'
+          />
+          <PinnedFriends
+            profilePicture={require('./assets/mobu.png')}
+            name='Mobu'
+          />
+          <PinnedFriends
+            profilePicture={require('./assets/bart.png')}
+            name='Bart'
+          />
+          <PinnedFriends
+            profilePicture={require('./assets/bart.png')}
+            name='Bart'
+          />
+          <PinnedFriends
+            profilePicture={require('./assets/bart.png')}
+            name='Bart'
+          />
+        </ScrollView>
       </View>
 
       {/* Chats */}
       <View style={styles.chatContainer}>
         <ScrollView>
-          <Chat />
-          <Chat />
-          <Chat />
-          <Chat />
-          <Chat />
+          {/* TEST .... */}
           <Chat />
           <Chat />
           <Chat />
@@ -139,8 +145,6 @@ const styles = StyleSheet.create({
   friendContainer: {
     flex: 2,
     alignSelf: 'center',
-    justifyContent: 'space-between',
-    height: '13%',
     width: '90%',
     flexDirection: 'row',
   },
