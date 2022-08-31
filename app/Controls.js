@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  View,
-  StyleSheet,
-  Image,
-  TouchableWithoutFeedback,
-} from 'react-native';
+import { StyleSheet, Image, TouchableWithoutFeedback } from 'react-native';
 import { BlurView } from 'expo-blur';
 
 export default function Controls({ navigation }) {

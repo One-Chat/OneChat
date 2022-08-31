@@ -12,6 +12,8 @@ import Profile from './app/Profile';
 import Settings from './app/Settings';
 import Calls from './app/Calls';
 import Community from './app/Community';
+import Controls from './app/Controls';
+import Tabs from './app/Tabs';
 
 //Navigation//
 import { NavigationContainer } from '@react-navigation/native';
@@ -47,17 +49,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <View style={styles.container} onLayout={onLayoutRootView}>
-        <Stack.Navigator>
-          <Stack.Screen
-            name='Chat'
-            component={MainChat}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen name='Profile' component={Profile} />
-          <Stack.Screen name='Calls' component={Calls} />
-          <Stack.Screen name='Community' component={Community} />
-          <Stack.Screen name='Settings' component={Settings} />
-        </Stack.Navigator>
+        <Tabs />
       </View>
     </NavigationContainer>
   );
