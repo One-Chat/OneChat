@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  View,
-  StyleSheet,
-  Image,
-  TouchableWithoutFeedback,
-} from 'react-native';
+import { StyleSheet, Image, TouchableWithoutFeedback } from 'react-native';
 import { BlurView } from 'expo-blur';
 
 export default function Controls({ navigation }) {
@@ -80,7 +75,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     overflow: 'hidden',
     borderRadius: 50,
-
     justifyContent: 'space-around',
   },
   image: {
@@ -92,7 +86,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     height: 55,
     width: 55,
-
     borderRadius: 100,
     borderColor: 'white',
     borderWidth: 2,
