@@ -1,7 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { BlurView } from 'expo-blur';
-import { StyleSheet, View } from 'react-native';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { StyleSheet } from 'react-native';
 
 // Screens //
 import MainChat from './MainChat';
@@ -34,9 +33,6 @@ export default function Tabs() {
         component={MainChat}
         options={{
           headerShown: false,
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name='chat' color={color} size={size} />
-          ),
         }}
       />
       <Tab.Screen
@@ -44,9 +40,6 @@ export default function Tabs() {
         component={Calls}
         options={{
           headerShown: false,
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name='chat' color={color} size={size} />
-          ),
         }}
       />
       <Tab.Screen
@@ -54,9 +47,6 @@ export default function Tabs() {
         component={Profile}
         options={{
           headerShown: false,
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name='chat' color={color} size={size} />
-          ),
         }}
       />
       <Tab.Screen
@@ -64,9 +54,6 @@ export default function Tabs() {
         component={Community}
         options={{
           headerShown: false,
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name='chat' color={color} size={size} />
-          ),
         }}
       />
       <Tab.Screen
@@ -74,9 +61,6 @@ export default function Tabs() {
         component={Settings}
         options={{
           headerShown: false,
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name='chat' color={color} size={size} />
-          ),
         }}
       />
     </Tab.Navigator>

@@ -1,15 +1,13 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TouchableWithoutFeedback,
-  TouchableOpacity,
-} from 'react-native';
-import { Button } from 'react-native-paper';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Controls from './Controls';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+
+//Screens//
+import SavedTabs from './saved/SavedTab';
+
+const Tab = createMaterialTopTabNavigator();
 
 export default function Profile({ navigation }) {
   return (
@@ -39,9 +37,7 @@ export default function Profile({ navigation }) {
       <Text style={styles.status}> Pickle Rick ! 🥒 </Text>
 
       <View style={styles.btnContainer}>
-        <Button>Saved</Button>
-        <Button>Media</Button>
-        <Button>Links</Button>
+        <SavedTabs />
       </View>
 
       <Controls navigation={navigation} />
@@ -86,6 +82,7 @@ const styles = StyleSheet.create({
     marginBottom: '2%',
   },
   memberInfo: {
+    fontFamily: 'fira-sans-light',
     alignSelf: 'center',
     color: 'gray',
   },
@@ -99,6 +96,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   btnContainer: {
+    flex: 0.7,
+
     margin: '5%',
     flexDirection: 'row',
     justifyContent: 'center',
