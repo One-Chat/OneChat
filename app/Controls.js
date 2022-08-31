@@ -75,7 +75,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     overflow: 'hidden',
     borderRadius: 50,
-
     justifyContent: 'space-around',
   },
   image: {
@@ -87,7 +86,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     height: 55,
     width: 55,
-
     borderRadius: 100,
     borderColor: 'white',
     borderWidth: 2,

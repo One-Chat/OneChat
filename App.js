@@ -6,13 +6,7 @@ import { View, StyleSheet } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
-//Screens//
-import MainChat from './app/MainChat';
-import Profile from './app/Profile';
-import Settings from './app/Settings';
-import Calls from './app/Calls';
-import Community from './app/Community';
-import Controls from './app/Controls';
+//Control//
 import Tabs from './app/Tabs';
 
 //Navigation//

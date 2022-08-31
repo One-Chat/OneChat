@@ -18,7 +18,7 @@ export default function MainChat({ navigation }) {
 
   return (
     <View style={styles.mainContainer}>
-      <SafeAreaView style={styles.title}>
+      <SafeAreaView style={styles.titleContainer}>
         <Text style={styles.titleStyle}>Chats</Text>
 
         {/* create new chat */}
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
   },
-  title: {
+  titleContainer: {
     flex: 0.05,
     flexDirection: 'row',
     justifyContent: 'space-between',
