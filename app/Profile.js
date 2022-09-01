@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Controls from './Controls';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 //Screens//
 import SavedTabs from './saved/SavedTab';
@@ -19,9 +20,10 @@ export default function Profile({ navigation }) {
             alert('Edit Profile');
           }}
         >
-          <Image
-            source={require('./assets/edit.png')}
-            style={styles.imageStyle}
+          <Ionicons
+            name='create-outline'
+            size={25}
+            style={{ right: 20, top: 5 }}
           />
         </TouchableOpacity>
       </SafeAreaView>
@@ -40,7 +42,7 @@ export default function Profile({ navigation }) {
         <SavedTabs />
       </View>
 
-      <Controls navigation={navigation} />
+      {/* <Controls navigation={navigation} /> */}
     </View>
   );
 }

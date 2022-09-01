@@ -12,6 +12,7 @@ import {
 import Chat from './Chat';
 import Controls from './Controls';
 import PinnedFriends from './PinnedFriends';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default function MainChat({ navigation }) {
   const [text, onChangeText] = useState('');
@@ -27,9 +28,10 @@ export default function MainChat({ navigation }) {
             alert('you clicked me');
           }}
         >
-          <Image
-            source={require('./assets/icon-add-message.png')}
-            style={styles.imageStyle}
+          <Ionicons
+            name='chatbubbles-outline'
+            size={25}
+            style={{ right: 20, top: 5 }}
           />
         </TouchableOpacity>
       </SafeAreaView>
@@ -37,9 +39,10 @@ export default function MainChat({ navigation }) {
       {/* search input */}
       <ScrollView style={{ flex: 1 }}>
         <View style={styles.searchSection}>
-          <Image
-            source={require('./assets/icon-search.png')}
-            style={styles.searchIcon}
+          <Ionicons
+            name='search-outline'
+            size={25}
+            style={{ top: 3, left: 3 }}
           />
           <TextInput
             placeholder='Search Chat ...'
@@ -99,7 +102,7 @@ export default function MainChat({ navigation }) {
           <Chat />
         </View>
       </ScrollView>
-      <Controls navigation={navigation} />
+      {/* <Controls navigation={navigation} /> */}
     </View>
   );
 }
@@ -121,12 +124,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     paddingLeft: 22,
     fontFamily: 'fira-sans-regular',
-  },
-  imageStyle: {
-    width: 24,
-    height: 24,
-    right: 25,
-    top: 10,
   },
   textInput: {
     width: '80%',

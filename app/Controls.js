@@ -11,7 +11,7 @@ export default function Controls({ navigation }) {
           navigation.navigate('Chat');
         }}
       >
-        <Image source={require('./assets/chat.png')} style={styles.image} />
+        {/* <Image source={require('./assets/chat.png')} style={styles.image} /> */}
       </TouchableWithoutFeedback>
 
       {/* Calls */}
@@ -20,10 +20,10 @@ export default function Controls({ navigation }) {
           navigation.navigate('Calls');
         }}
       >
-        <Image
+        {/* <Image
           source={require('./assets/telephone.png')}
           style={styles.image}
-        />
+        /> */}
       </TouchableWithoutFeedback>
 
       {/* Profile */}
@@ -42,10 +42,10 @@ export default function Controls({ navigation }) {
           navigation.navigate('Community');
         }}
       >
-        <Image
+        {/* <Image
           source={require('./assets/community.png')}
           style={styles.image}
-        />
+        /> */}
       </TouchableWithoutFeedback>
 
       {/* Settings */}
@@ -54,7 +54,7 @@ export default function Controls({ navigation }) {
           navigation.navigate('Settings');
         }}
       >
-        <Image source={require('./assets/gear.png')} style={styles.image} />
+        {/* <Image source={require('./assets/gear.png')} style={styles.image} /> */}
       </TouchableWithoutFeedback>
     </BlurView>
   );

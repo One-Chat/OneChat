@@ -9,7 +9,7 @@ export default function Settings({ navigation }) {
       <SafeAreaView>
         <Text style={styles.titleStyle}>Settings</Text>
       </SafeAreaView>
-      <Controls navigation={navigation} />
+      {/* <Controls navigation={navigation} /> */}
     </View>
   );
 }

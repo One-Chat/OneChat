@@ -7,7 +7,7 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
 //Control//
-import Tabs from './app/Tabs';
+import MainControl from './app/MainControl';
 
 //Navigation//
 import { NavigationContainer } from '@react-navigation/native';
@@ -43,7 +43,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <View style={styles.container} onLayout={onLayoutRootView}>
-        <Tabs />
+        <MainControl />
       </View>
     </NavigationContainer>
   );

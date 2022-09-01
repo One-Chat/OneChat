@@ -9,7 +9,7 @@ export default function Community({ navigation }) {
       <SafeAreaView>
         <Text style={styles.titleStyle}>Community</Text>
       </SafeAreaView>
-      <Controls navigation={navigation} />
+      {/* <Controls navigation={navigation} /> */}
     </View>
   );
 }

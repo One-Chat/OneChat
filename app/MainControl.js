@@ -1,6 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { BlurView } from 'expo-blur';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Image } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 // Screens //
 import MainChat from './MainChat';
@@ -11,7 +12,7 @@ import Community from './Community';
 
 const Tab = createBottomTabNavigator();
 
-export default function Tabs() {
+export default function MainControl() {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -19,12 +20,13 @@ export default function Tabs() {
         tabBarBackground: () => (
           <BlurView
             tint='dark'
-            intensity={20}
+            intensity={30}
             style={StyleSheet.absoluteFill}
           />
         ),
-        // tabBarItemStyle: { alignContent: 'center' },
-        tabBarStyle: { display: 'none' },
+        tabBarShowLabel: false,
+
+        // tabBarStyle: { display: 'none' },
       }}
       initialRouteName='Chat'
     >
@@ -33,6 +35,7 @@ export default function Tabs() {
         component={MainChat}
         options={{
           headerShown: false,
+          tabBarIcon: () => <Ionicons name='chatbubble-outline' size={30} />,
         }}
       />
       <Tab.Screen
@@ -40,6 +43,7 @@ export default function Tabs() {
         component={Calls}
         options={{
           headerShown: false,
+          tabBarIcon: () => <Ionicons name='call-outline' size={30} />,
         }}
       />
       <Tab.Screen
@@ -47,6 +51,12 @@ export default function Tabs() {
         component={Profile}
         options={{
           headerShown: false,
+          tabBarIcon: () => (
+            <Image
+              source={require('./assets/rick.jpeg')}
+              style={styles.tabBarImg}
+            />
+          ),
         }}
       />
       <Tab.Screen
@@ -54,6 +64,7 @@ export default function Tabs() {
         component={Community}
         options={{
           headerShown: false,
+          tabBarIcon: () => <Ionicons name='people-outline' size={30} />,
         }}
       />
       <Tab.Screen
@@ -61,6 +72,7 @@ export default function Tabs() {
         component={Settings}
         options={{
           headerShown: false,
+          tabBarIcon: () => <Ionicons name='cog-outline' size={30} />,
         }}
       />
     </Tab.Navigator>
@@ -81,6 +93,14 @@ const styles = StyleSheet.create({
     // alignSelf: 'center',
     left: 40,
     width: '80%',
+    paddingBottom: 0,
     justifyContent: 'space-around',
+  },
+  tabBarImg: {
+    width: '90%',
+    height: '70%',
+    borderRadius: 50,
+    borderWidth: 2,
+    borderColor: 'white',
   },
 });

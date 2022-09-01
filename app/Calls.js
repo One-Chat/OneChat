@@ -9,7 +9,7 @@ export default function Calls({ navigation }) {
       <SafeAreaView>
         <Text style={styles.titleStyle}>Calls</Text>
       </SafeAreaView>
-      <Controls navigation={navigation} />
+      {/* <Controls navigation={navigation} /> */}
     </View>
   );
 }
