@@ -66,7 +66,11 @@ export default function MainChatView() {
             placeholder='Search Chat ...'
             onChangeText={onChangeText}
             value={text}
-            style={styles.textInput}
+            style={
+              colorScheme === 'dark'
+                ? styles.textInputDark
+                : styles.textInputLight
+            }
           />
         </View>
 
@@ -148,7 +152,13 @@ const styles = StyleSheet.create({
     paddingLeft: 22,
     fontFamily: 'fira-sans-regular',
   },
-  textInput: {
+  textInputLight: {
+    width: '80%',
+    padding: 10,
+    alignSelf: 'center',
+  },
+  textInputDark: {
+    color: 'white',
     width: '80%',
     padding: 10,
     alignSelf: 'center',
