@@ -1,4 +1,4 @@
-import { ScrollView, Text, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import CallsBox from './CallsBox';
 
 export default function AllCalls() {

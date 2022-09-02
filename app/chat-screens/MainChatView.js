@@ -9,17 +9,28 @@ import {
   ScrollView,
 } from 'react-native';
 import ChatBox from './ChatBox';
-import Controls from '../Controls';
 import PinnedFriends from './PinnedFriends';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export default function MainChatView({ navigation }) {
+// Theme //
+import { useColorScheme } from 'react-native';
+
+export default function MainChatView() {
+  const colorScheme = useColorScheme();
   const [text, onChangeText] = useState('');
 
   return (
     <View style={styles.mainContainer}>
       <SafeAreaView style={styles.titleContainer}>
-        <Text style={styles.titleStyle}>Chats</Text>
+        <Text
+          style={
+            colorScheme === 'dark'
+              ? styles.titleStyleDark
+              : styles.titleStyleLight
+          }
+        >
+          Chats
+        </Text>
 
         {/* create new chat */}
         <TouchableOpacity
@@ -31,17 +42,25 @@ export default function MainChatView({ navigation }) {
             name='chatbubbles-outline'
             size={25}
             style={{ right: 20 }}
+            color={colorScheme === 'dark' ? 'white' : 'black'}
           />
         </TouchableOpacity>
       </SafeAreaView>
 
       {/* search input */}
-      <ScrollView style={{ flex: 1 }}>
-        <View style={styles.searchSection}>
+      <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
+        <View
+          style={
+            colorScheme === 'dark'
+              ? styles.searchSectionDark
+              : styles.searchSectionLight
+          }
+        >
           <Ionicons
             name='search-outline'
             size={25}
             style={{ alignSelf: 'center', left: 3 }}
+            color='gray'
           />
           <TextInput
             placeholder='Search Chat ...'
@@ -99,7 +118,6 @@ export default function MainChatView({ navigation }) {
           <ChatBox />
         </View>
       </ScrollView>
-      {/* <Controls navigation={navigation} /> */}
     </View>
   );
 }
@@ -117,7 +135,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  titleStyle: {
+  titleStyleLight: {
+    fontSize: '40%',
+    fontWeight: '600',
+    paddingLeft: 22,
+    fontFamily: 'fira-sans-regular',
+  },
+  titleStyleDark: {
+    color: 'white',
     fontSize: '40%',
     fontWeight: '600',
     paddingLeft: 22,
@@ -128,11 +153,20 @@ const styles = StyleSheet.create({
     padding: 10,
     alignSelf: 'center',
   },
-  searchSection: {
+  searchSectionLight: {
+    backgroundColor: 'lightgray',
     flex: 0.7,
     flexDirection: 'row',
     alignSelf: 'center',
-    borderWidth: 1,
+    width: '90%',
+    borderRadius: 10,
+    margin: '5%',
+  },
+  searchSectionDark: {
+    backgroundColor: '#121212',
+    flex: 0.7,
+    flexDirection: 'row',
+    alignSelf: 'center',
     width: '90%',
     borderRadius: 10,
     margin: '5%',

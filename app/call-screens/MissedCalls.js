@@ -1,4 +1,4 @@
-import { ScrollView, Text, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import CallsBox from './CallsBox';
 
 export default function MissCalls() {

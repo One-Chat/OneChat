@@ -1,15 +1,25 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Controls from '../Controls';
 
-export default function Community({ navigation }) {
+// Theme //
+import { useColorScheme } from 'react-native';
+
+export default function Community() {
+  const colorScheme = useColorScheme();
   return (
     <View style={styles.mainContainer}>
       <SafeAreaView style={styles.titleContainer}>
-        <Text style={styles.titleStyle}>Community</Text>
+        <Text
+          style={
+            colorScheme === 'dark'
+              ? styles.titleStyleDark
+              : styles.titleStyleLight
+          }
+        >
+          Community
+        </Text>
       </SafeAreaView>
-      {/* <Controls navigation={navigation} /> */}
     </View>
   );
 }
@@ -26,7 +36,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  titleStyle: {
+  titleStyleLight: {
+    fontSize: '40%',
+    fontWeight: '600',
+    paddingLeft: 22,
+    fontFamily: 'fira-sans-regular',
+  },
+  titleStyleDark: {
+    color: 'white',
     fontSize: '40%',
     fontWeight: '600',
     paddingLeft: 22,
