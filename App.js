@@ -7,13 +7,17 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
 //Control//
-import Tabs from './app/Tabs';
+import MainControl from './app/MainControl';
 
 //Navigation//
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
+
+////To-fix/////
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Sending']);
 
 export default function App() {
   //// Load Fonts ////
@@ -43,7 +47,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <View style={styles.container} onLayout={onLayoutRootView}>
-        <Tabs />
+        <MainControl />
       </View>
     </NavigationContainer>
   );

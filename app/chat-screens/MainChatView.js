@@ -4,16 +4,16 @@ import {
   Text,
   StyleSheet,
   SafeAreaView,
-  Image,
   TextInput,
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import Chat from './Chat';
-import Controls from './Controls';
+import ChatBox from './ChatBox';
+import Controls from '../Controls';
 import PinnedFriends from './PinnedFriends';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export default function MainChat({ navigation }) {
+export default function MainChatView({ navigation }) {
   const [text, onChangeText] = useState('');
 
   return (
@@ -24,12 +24,13 @@ export default function MainChat({ navigation }) {
         {/* create new chat */}
         <TouchableOpacity
           onPress={() => {
-            alert('you clicked me');
+            alert('Add a new conversation');
           }}
         >
-          <Image
-            source={require('./assets/icon-add-message.png')}
-            style={styles.imageStyle}
+          <Ionicons
+            name='chatbubbles-outline'
+            size={25}
+            style={{ right: 20 }}
           />
         </TouchableOpacity>
       </SafeAreaView>
@@ -37,9 +38,10 @@ export default function MainChat({ navigation }) {
       {/* search input */}
       <ScrollView style={{ flex: 1 }}>
         <View style={styles.searchSection}>
-          <Image
-            source={require('./assets/icon-search.png')}
-            style={styles.searchIcon}
+          <Ionicons
+            name='search-outline'
+            size={25}
+            style={{ alignSelf: 'center', left: 3 }}
           />
           <TextInput
             placeholder='Search Chat ...'
@@ -54,27 +56,27 @@ export default function MainChat({ navigation }) {
         <View style={styles.friendContainer}>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             <PinnedFriends
-              profilePicture={require('./assets/kirby.png')}
+              profilePicture={require('../assets/kirby.png')}
               name='Kirby'
             />
             <PinnedFriends
-              profilePicture={require('./assets/one.jpeg')}
+              profilePicture={require('../assets/one.jpeg')}
               name='Saitama'
             />
             <PinnedFriends
-              profilePicture={require('./assets/mobu.png')}
+              profilePicture={require('../assets/mobu.png')}
               name='Mobu'
             />
             <PinnedFriends
-              profilePicture={require('./assets/bart.png')}
+              profilePicture={require('../assets/bart.png')}
               name='Bart'
             />
             <PinnedFriends
-              profilePicture={require('./assets/bart.png')}
+              profilePicture={require('../assets/bart.png')}
               name='Bart'
             />
             <PinnedFriends
-              profilePicture={require('./assets/bart.png')}
+              profilePicture={require('../assets/bart.png')}
               name='Bart'
             />
           </ScrollView>
@@ -83,23 +85,21 @@ export default function MainChat({ navigation }) {
         {/* Chats */}
         <View style={styles.chatContainer}>
           {/* TEST .... */}
-          <Chat />
-          <Chat />
-          <Chat />
-          <Chat />
-          <Chat />
-          <Chat />
-          <Chat />
-          <Chat />
-          <Chat />
-          <Chat />
-          <Chat />
-          <Chat />
-          <Chat />
-          <Chat />
+          <ChatBox />
+          <ChatBox />
+          <ChatBox />
+          <ChatBox />
+          <ChatBox />
+          <ChatBox />
+          <ChatBox />
+          <ChatBox />
+          <ChatBox />
+          <ChatBox />
+          <ChatBox />
+          <ChatBox />
         </View>
       </ScrollView>
-      <Controls navigation={navigation} />
+      {/* <Controls navigation={navigation} /> */}
     </View>
   );
 }
@@ -112,7 +112,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   titleContainer: {
-    flex: 0.05,
+    flex: 0.07,
+    alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
@@ -122,22 +123,10 @@ const styles = StyleSheet.create({
     paddingLeft: 22,
     fontFamily: 'fira-sans-regular',
   },
-  imageStyle: {
-    width: 24,
-    height: 24,
-    right: 25,
-    top: 10,
-  },
   textInput: {
     width: '80%',
     padding: 10,
     alignSelf: 'center',
-  },
-  searchIcon: {
-    padding: 12,
-    margin: 7,
-    height: 24,
-    width: 24,
   },
   searchSection: {
     flex: 0.7,

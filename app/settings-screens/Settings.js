@@ -1,15 +1,15 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Controls from './Controls';
+import Controls from '../Controls';
 
-export default function Calls({ navigation }) {
+export default function Settings({ navigation }) {
   return (
     <View style={styles.mainContainer}>
-      <SafeAreaView>
-        <Text style={styles.titleStyle}>Calls</Text>
+      <SafeAreaView style={styles.titleContainer}>
+        <Text style={styles.titleStyle}>Settings</Text>
       </SafeAreaView>
-      <Controls navigation={navigation} />
+      {/* <Controls navigation={navigation} /> */}
     </View>
   );
 }
@@ -25,5 +25,11 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     paddingLeft: 22,
     fontFamily: 'fira-sans-regular',
+  },
+  titleContainer: {
+    flex: 0.07,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });
