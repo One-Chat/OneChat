@@ -21,11 +21,15 @@ export default function Calls({ navigation }) {
             alert('Settings for calls ...');
           }}
         >
-          <Ionicons name='ellipsis-vertical' size={25} style={{ right: 20 }} />
+          <Ionicons
+            name='ellipsis-vertical-sharp'
+            size={25}
+            style={{ right: 20 }}
+          />
         </TouchableOpacity>
       </SafeAreaView>
       <Tab.Navigator
-        style={{ width: '80%', alignSelf: 'center' }}
+        style={{ width: '100%', alignSelf: 'center' }}
         screenOptions={{
           tabBarLabelStyle: {
             fontSize: '18rem',

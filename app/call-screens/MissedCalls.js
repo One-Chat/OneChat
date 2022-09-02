@@ -1,9 +1,13 @@
 import { ScrollView, Text, StyleSheet } from 'react-native';
+import CallsBox from './CallsBox';
 
 export default function MissCalls() {
   return (
-    <ScrollView style={styles.mainContainer}>
-      <Text>SavedLinks</Text>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      style={styles.mainContainer}
+    >
+      <CallsBox />
     </ScrollView>
   );
 }
