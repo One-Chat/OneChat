@@ -15,6 +15,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
 
+////To-fix/////
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Sending']);
+
 export default function App() {
   //// Load Fonts ////
   const [fontsLoaded] = useFonts({

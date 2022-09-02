@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Controls from './Controls';
+import Controls from '../Controls';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 //Screens//
-import SavedTabs from './saved/SavedTab';
+import SavedTabs from './saved-screens/SavedTab';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -20,16 +20,13 @@ export default function Profile({ navigation }) {
             alert('Edit Profile');
           }}
         >
-          <Ionicons
-            name='create-outline'
-            size={25}
-            style={{ right: 20, top: 5 }}
-          />
+          <Ionicons name='create-outline' size={25} style={{ right: 20 }} />
         </TouchableOpacity>
       </SafeAreaView>
+
       <View style={styles.imgContainer}>
         <Image
-          source={require('./assets/rick.jpeg')}
+          source={require('../assets/rick.jpeg')}
           style={styles.profileImg}
         />
       </View>
@@ -54,6 +51,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   titleContiner: {
+    flex: 0.13,
+    alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
@@ -62,12 +61,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     paddingLeft: 22,
     fontFamily: 'fira-sans-regular',
-  },
-  imageStyle: {
-    width: 24,
-    height: 24,
-    right: 25,
-    top: 10,
   },
   profileImg: {
     alignSelf: 'center',

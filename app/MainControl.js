@@ -4,11 +4,11 @@ import { StyleSheet, Image } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 // Screens //
-import MainChat from './MainChat';
-import Profile from './Profile';
-import Settings from './Settings';
-import Calls from './Calls';
-import Community from './Community';
+import MainChat from './chat-screens/MainChatView';
+import Profile from './profile-screens/Profile';
+import Settings from './settings-screens/Settings';
+import MainCallsView from './call-screens/MainCallsView';
+import Community from './community-screens/Community';
 
 const Tab = createBottomTabNavigator();
 
@@ -35,15 +35,25 @@ export default function MainControl() {
         component={MainChat}
         options={{
           headerShown: false,
-          tabBarIcon: () => <Ionicons name='chatbubble-outline' size={30} />,
+          tabBarIcon: ({ focused }) =>
+            !focused ? (
+              <Ionicons name='chatbubble-outline' size={30} />
+            ) : (
+              <Ionicons name='chatbubble' size={30} />
+            ),
         }}
       />
       <Tab.Screen
         name='Calls'
-        component={Calls}
+        component={MainCallsView}
         options={{
           headerShown: false,
-          tabBarIcon: () => <Ionicons name='call-outline' size={30} />,
+          tabBarIcon: ({ focused }) =>
+            !focused ? (
+              <Ionicons name='call-outline' size={30} />
+            ) : (
+              <Ionicons name='call' size={30} />
+            ),
         }}
       />
       <Tab.Screen
@@ -51,12 +61,18 @@ export default function MainControl() {
         component={Profile}
         options={{
           headerShown: false,
-          tabBarIcon: () => (
-            <Image
-              source={require('./assets/rick.jpeg')}
-              style={styles.tabBarImg}
-            />
-          ),
+          tabBarIcon: ({ focused }) =>
+            !focused ? (
+              <Image
+                source={require('./assets/rick.jpeg')}
+                style={styles.tabBarImg}
+              />
+            ) : (
+              <Image
+                source={require('./assets/rick.jpeg')}
+                style={styles.tabBarImgActive}
+              />
+            ),
         }}
       />
       <Tab.Screen
@@ -64,7 +80,12 @@ export default function MainControl() {
         component={Community}
         options={{
           headerShown: false,
-          tabBarIcon: () => <Ionicons name='people-outline' size={30} />,
+          tabBarIcon: ({ focused }) =>
+            !focused ? (
+              <Ionicons name='people-outline' size={30} />
+            ) : (
+              <Ionicons name='people' size={30} />
+            ),
         }}
       />
       <Tab.Screen
@@ -72,7 +93,12 @@ export default function MainControl() {
         component={Settings}
         options={{
           headerShown: false,
-          tabBarIcon: () => <Ionicons name='cog-outline' size={30} />,
+          tabBarIcon: ({ focused }) =>
+            !focused ? (
+              <Ionicons name='settings-outline' size={30} />
+            ) : (
+              <Ionicons name='settings' size={30} />
+            ),
         }}
       />
     </Tab.Navigator>
@@ -102,5 +128,12 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     borderWidth: 2,
     borderColor: 'white',
+  },
+  tabBarImgActive: {
+    width: '90%',
+    height: '70%',
+    borderRadius: 50,
+    borderWidth: 2,
+    borderColor: '#AC7088',
   },
 });

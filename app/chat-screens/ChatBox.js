@@ -2,10 +2,10 @@ import React from 'react';
 import { View, StyleSheet, Image, Text } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export default function Chat() {
+export default function ChatBox() {
   return (
     <View style={styles.container}>
-      <Image source={require('./assets/mobu.png')} style={styles.pictures} />
+      <Image source={require('../assets/mobu.png')} style={styles.pictures} />
       <View style={styles.info}>
         <Text
           style={{
