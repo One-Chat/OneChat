@@ -7,7 +7,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 const Tab = createBottomTabNavigator();
 
 // Screens //
-import MainChat from './chat-screens/MainChatView';
+import MainMessageView from './message-screens/MainMessageView';
 import Profile from './profile-screens/Profile';
 import Settings from './settings-screens/Settings';
 import MainCallsView from './call-screens/MainCallsView';
@@ -36,7 +36,7 @@ export default function MainControl() {
     >
       <Tab.Screen
         name='Chat'
-        component={MainChat}
+        component={MainMessageView}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) =>

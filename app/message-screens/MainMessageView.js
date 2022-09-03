@@ -8,14 +8,14 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import ChatBox from './ChatBox';
+import MessageBox from './MessageBox';
 import PinnedFriends from './PinnedFriends';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 // Theme //
 import { useColorScheme } from 'react-native';
 
-export default function MainChatView() {
+export default function MainMessageView() {
   const colorScheme = useColorScheme();
   const [text, onChangeText] = useState('');
 
@@ -29,7 +29,7 @@ export default function MainChatView() {
               : styles.titleStyleLight
           }
         >
-          Chats
+          Messages
         </Text>
 
         {/* create new chat */}
@@ -63,7 +63,7 @@ export default function MainChatView() {
             color='gray'
           />
           <TextInput
-            placeholder='Search Chat ...'
+            placeholder='Search'
             onChangeText={onChangeText}
             value={text}
             style={
@@ -78,48 +78,13 @@ export default function MainChatView() {
 
         <View style={styles.friendContainer}>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-            <PinnedFriends
-              profilePicture={require('../assets/kirby.png')}
-              name='Kirby'
-            />
-            <PinnedFriends
-              profilePicture={require('../assets/one.jpeg')}
-              name='Saitama'
-            />
-            <PinnedFriends
-              profilePicture={require('../assets/mobu.png')}
-              name='Mobu'
-            />
-            <PinnedFriends
-              profilePicture={require('../assets/bart.png')}
-              name='Bart'
-            />
-            <PinnedFriends
-              profilePicture={require('../assets/bart.png')}
-              name='Bart'
-            />
-            <PinnedFriends
-              profilePicture={require('../assets/bart.png')}
-              name='Bart'
-            />
+            <PinnedFriends />
           </ScrollView>
         </View>
 
         {/* Chats */}
         <View style={styles.chatContainer}>
-          {/* TEST .... */}
-          <ChatBox />
-          <ChatBox />
-          <ChatBox />
-          <ChatBox />
-          <ChatBox />
-          <ChatBox />
-          <ChatBox />
-          <ChatBox />
-          <ChatBox />
-          <ChatBox />
-          <ChatBox />
-          <ChatBox />
+          <MessageBox />
         </View>
       </ScrollView>
     </View>
@@ -182,12 +147,7 @@ const styles = StyleSheet.create({
     margin: '5%',
   },
   friendContainer: {
-    flex: 2,
     alignSelf: 'center',
     width: '90%',
-    flexDirection: 'row',
-  },
-  chatContainer: {
-    flex: 11,
   },
 });

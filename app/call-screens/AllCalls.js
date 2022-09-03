@@ -9,17 +9,6 @@ export default function AllCalls() {
     >
       <View>
         <CallsBox />
-        <CallsBox />
-        <CallsBox />
-        <CallsBox />
-        <CallsBox />
-        <CallsBox />
-        <CallsBox />
-        <CallsBox />
-        <CallsBox />
-        <CallsBox />
-        <CallsBox />
-        <CallsBox />
       </View>
     </ScrollView>
   );
