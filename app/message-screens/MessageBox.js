@@ -23,6 +23,7 @@ export default function MessageBox() {
       }
     >
       <FlatList
+        showsVerticalScrollIndicator={false}
         data={Users}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (

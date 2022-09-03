@@ -12,6 +12,7 @@ export default function CallsBox() {
 
   return (
     <FlatList
+      showsVerticalScrollIndicator={false}
       data={Calls}
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => (

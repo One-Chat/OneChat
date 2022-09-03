@@ -1,14 +1,11 @@
-import { ScrollView, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import CallsBox from './CallsBox';
 
 export default function MissCalls() {
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      style={styles.mainContainer}
-    >
+    <View showsVerticalScrollIndicator={false} style={styles.mainContainer}>
       <CallsBox />
-    </ScrollView>
+    </View>
   );
 }
 
@@ -18,6 +15,6 @@ const styles = StyleSheet.create({
     width: '90%',
     alignSelf: 'center',
     flex: 1,
-    padding: '5%',
+    padding: '3%',
   },
 });

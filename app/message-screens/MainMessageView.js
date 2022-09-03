@@ -48,7 +48,11 @@ export default function MainMessageView() {
       </SafeAreaView>
 
       {/* search input */}
-      <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
+      <View
+        nestedScrollEnabled={true}
+        showsVerticalScrollIndicator={false}
+        style={{ flex: 1 }}
+      >
         <View
           style={
             colorScheme === 'dark'
@@ -86,7 +90,7 @@ export default function MainMessageView() {
         <View style={styles.chatContainer}>
           <MessageBox />
         </View>
-      </ScrollView>
+      </View>
     </View>
   );
 }
@@ -149,5 +153,9 @@ const styles = StyleSheet.create({
   friendContainer: {
     alignSelf: 'center',
     width: '90%',
+  },
+  chatContainer: {
+    flex: 10,
+    marginBottom: 30,
   },
 });
