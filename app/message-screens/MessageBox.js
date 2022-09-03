@@ -1,5 +1,12 @@
 import React from 'react';
-import { View, StyleSheet, Image, Text, FlatList } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Image,
+  Text,
+  FlatList,
+  TouchableOpacity,
+} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 // Theme //
@@ -13,7 +20,7 @@ const Tab = createMaterialTopTabNavigator();
 // Users info //
 import { Users } from '../users';
 
-export default function MessageBox() {
+export default function MessageBox({ navigation }) {
   const colorScheme = useColorScheme();
 
   return (
@@ -27,7 +34,11 @@ export default function MessageBox() {
         data={Users}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <View>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('ChatView');
+            }}
+          >
             <View
               style={
                 colorScheme === 'dark'
@@ -53,7 +64,7 @@ export default function MessageBox() {
               <Text style={styles.timeStyle}> {item.timestamp} </Text>
               <Ionicons name='checkmark-done' size={20} color='green' />
             </View>
-          </View>
+          </TouchableOpacity>
         )}
       />
     </View>
@@ -99,11 +110,11 @@ const styles = StyleSheet.create({
     borderColor: 'white',
   },
   textStyleLight: {
-    fontFamily: 'fira-sans-bold',
+    fontFamily: 'fira-sans-regular',
     fontSize: '18rem',
   },
   textStyleDark: {
-    fontFamily: 'fira-sans-bold',
+    fontFamily: 'fira-sans-regular',
     fontSize: '18rem',
     color: 'white',
   },
@@ -117,7 +128,7 @@ const styles = StyleSheet.create({
   },
   messageStyle: {
     color: 'gray',
-    fontFamily: 'fira-sans-regular',
+    fontFamily: 'fira-sans-light',
     marginLeft: -3,
   },
   timeContainer: {

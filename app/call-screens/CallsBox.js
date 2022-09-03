@@ -70,11 +70,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
   },
   textStyleLight: {
-    fontFamily: 'fira-sans-bold',
+    fontFamily: 'fira-sans-regular',
     fontSize: '18rem',
   },
   textStyleDark: {
-    fontFamily: 'fira-sans-bold',
+    fontFamily: 'fira-sans-regular',
     fontSize: '18rem',
     color: 'white',
   },

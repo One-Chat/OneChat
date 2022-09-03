@@ -15,7 +15,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 // Theme //
 import { useColorScheme } from 'react-native';
 
-export default function MainMessageView() {
+export default function MainMessageView({ navigation }) {
   const colorScheme = useColorScheme();
   const [text, onChangeText] = useState('');
 
@@ -88,7 +88,7 @@ export default function MainMessageView() {
 
         {/* Chats */}
         <View style={styles.chatContainer}>
-          <MessageBox />
+          <MessageBox navigation={navigation} />
         </View>
       </View>
     </View>

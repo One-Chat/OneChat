@@ -7,11 +7,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 const Tab = createBottomTabNavigator();
 
 // Screens //
-import MainMessageView from './message-screens/MainMessageView';
 import Profile from './profile-screens/Profile';
 import Settings from './settings-screens/Settings';
 import MainCallsView from './call-screens/MainCallsView';
 import Community from './community-screens/Community';
+import ChatStackScreen from './navigation/ChatStackScreen';
 
 // Theme //
 import { useColorScheme } from 'react-native';
@@ -36,7 +36,7 @@ export default function MainControl() {
     >
       <Tab.Screen
         name='Chat'
-        component={MainMessageView}
+        component={ChatStackScreen}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) =>
