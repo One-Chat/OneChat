@@ -36,7 +36,10 @@ export default function MessageBox({ navigation }) {
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('ChatView');
+              navigation.navigate('ChatView', {
+                userName: item.userName,
+                userImg: item.userImg,
+              });
             }}
           >
             <View

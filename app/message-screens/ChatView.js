@@ -10,19 +10,17 @@ import {
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export default function ChatView({ navigation: { goBack } }) {
+export default function ChatView({ navigation: { goBack }, route }) {
   const colorScheme = useColorScheme();
+  const { userName, userImg } = route.params;
   return (
     <View style={styles.mainContainer}>
       <SafeAreaView style={styles.userContainer}>
         <View style={styles.imgContainer}>
-          <Image
-            source={require('../assets/kirby.png')}
-            style={styles.imgStyle}
-          />
+          <Image source={userImg} style={styles.imgStyle} />
         </View>
         <View style={styles.infoContainer}>
-          <Text style={styles.name}>Kirby</Text>
+          <Text style={styles.name}>{userName}</Text>
           <View style={styles.statusContainer}>
             <Ionicons name='ellipse' size={8} color='green' />
             <Text style={styles.status}>Online </Text>

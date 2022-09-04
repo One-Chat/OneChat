@@ -19,7 +19,10 @@ export default function ChatStackScreen() {
       <ChatStack.Screen
         name='ChatView'
         component={ChatView}
-        options={{ headerShown: false }}
+        options={({ route }) => ({
+          title: route.params.userName,
+          headerShown: false,
+        })}
       />
     </ChatStack.Navigator>
   );
