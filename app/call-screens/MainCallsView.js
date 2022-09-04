@@ -74,14 +74,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   titleStyleLight: {
-    fontSize: '40%',
+    fontSize: 35,
     fontWeight: '600',
     paddingLeft: 22,
     fontFamily: 'fira-sans-regular',
   },
   titleStyleDark: {
     color: 'white',
-    fontSize: '40%',
+    fontSize: 35,
     fontWeight: '600',
     paddingLeft: 22,
     fontFamily: 'fira-sans-regular',

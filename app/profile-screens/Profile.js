@@ -83,14 +83,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   titleStyleLight: {
-    fontSize: '40%',
+    fontSize: 35,
     fontWeight: '600',
     paddingLeft: 22,
     fontFamily: 'fira-sans-regular',
   },
   titleStyleDark: {
     color: 'white',
-    fontSize: '40%',
+    fontSize: 35,
     fontWeight: '600',
     paddingLeft: 22,
     fontFamily: 'fira-sans-regular',
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
   },
   userNameLight: {
     fontFamily: 'fira-sans-regular',
-    fontSize: '40rem',
+    fontSize: 35,
     alignSelf: 'center',
     marginTop: '5%',
     marginBottom: '2%',
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
   userNameDark: {
     color: 'white',
     fontFamily: 'fira-sans-regular',
-    fontSize: '40rem',
+    fontSize: 35,
     alignSelf: 'center',
     marginTop: '5%',
     marginBottom: '2%',
