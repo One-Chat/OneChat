@@ -7,7 +7,7 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
 //Control//
-import MainControl from './app/MainControl';
+import Controls from './app/Controls';
 
 //Navigation//
 import {
@@ -52,13 +52,14 @@ export default function App() {
   if (!fontsLoaded) {
     return null;
   }
+
   return (
     <NavigationContainer
       theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
     >
       <View style={styles.container} onLayout={onLayoutRootView}>
         <StatusBar />
-        <MainControl />
+        <Controls />
       </View>
     </NavigationContainer>
   );
