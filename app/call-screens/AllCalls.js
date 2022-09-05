@@ -1,27 +1,13 @@
-import { ScrollView, Text, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import CallsBox from './CallsBox';
 
 export default function AllCalls() {
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      style={styles.mainContainer}
-    >
+    <View showsVerticalScrollIndicator={false} style={styles.mainContainer}>
       <View>
         <CallsBox />
-        <CallsBox />
-        <CallsBox />
-        <CallsBox />
-        <CallsBox />
-        <CallsBox />
-        <CallsBox />
-        <CallsBox />
-        <CallsBox />
-        <CallsBox />
-        <CallsBox />
-        <CallsBox />
       </View>
-    </ScrollView>
+    </View>
   );
 }
 
@@ -31,6 +17,6 @@ const styles = StyleSheet.create({
     width: '90%',
     alignSelf: 'center',
     flex: 1,
-    padding: '5%',
+    padding: '3%',
   },
 });

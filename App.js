@@ -7,19 +7,27 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
 //Control//
-import MainControl from './app/MainControl';
+import Controls from './app/Controls';
 
 //Navigation//
-import { NavigationContainer } from '@react-navigation/native';
+import {
+  NavigationContainer,
+  DefaultTheme,
+  DarkTheme,
+} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
 const Stack = createNativeStackNavigator();
+
+// Theme //
+import { useColorScheme } from 'react-native';
 
 ////To-fix/////
 import { LogBox } from 'react-native';
 LogBox.ignoreLogs(['Sending']);
 
 export default function App() {
+  const colorScheme = useColorScheme();
+
   //// Load Fonts ////
   const [fontsLoaded] = useFonts({
     'fira-sans-light': require('./app/assets/fonts/FiraSans-Light.ttf'),
@@ -44,10 +52,14 @@ export default function App() {
   if (!fontsLoaded) {
     return null;
   }
+
   return (
-    <NavigationContainer>
+    <NavigationContainer
+      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
+    >
       <View style={styles.container} onLayout={onLayoutRootView}>
-        <MainControl />
+        <StatusBar />
+        <Controls />
       </View>
     </NavigationContainer>
   );
@@ -57,6 +69,5 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F9F9F9',
   },
 });

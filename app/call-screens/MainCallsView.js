@@ -1,21 +1,34 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+// Navigation //
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 const Tab = createMaterialTopTabNavigator();
 
-//Screens
+// Theme //
+import { useColorScheme } from 'react-native';
+
+//Screens //
 import AllCalls from './AllCalls';
 import MissCalls from './MissedCalls';
-import Controls from '../Controls';
 
-export default function Calls({ navigation }) {
+export default function Calls() {
+  const colorScheme = useColorScheme();
+
   return (
     <View style={styles.mainContainer}>
       <SafeAreaView style={styles.titleContainer}>
-        <Text style={styles.titleStyle}>Calls</Text>
+        <Text
+          style={
+            colorScheme === 'dark'
+              ? styles.titleStyleDark
+              : styles.titleStyleLight
+          }
+        >
+          Calls
+        </Text>
         <TouchableOpacity
           onPress={() => {
             alert('Settings for calls ...');
@@ -25,11 +38,12 @@ export default function Calls({ navigation }) {
             name='ellipsis-vertical-sharp'
             size={25}
             style={{ right: 20 }}
+            color={colorScheme === 'dark' ? 'white' : 'black'}
           />
         </TouchableOpacity>
       </SafeAreaView>
       <Tab.Navigator
-        style={{ width: '100%', alignSelf: 'center' }}
+        style={{ width: '100%', top: -20 }}
         screenOptions={{
           tabBarLabelStyle: {
             fontSize: '18rem',
@@ -43,8 +57,6 @@ export default function Calls({ navigation }) {
         <Tab.Screen name='All' component={AllCalls} />
         <Tab.Screen name='Missed' component={MissCalls} />
       </Tab.Navigator>
-
-      {/* <Controls navigation={navigation} /> */}
     </View>
   );
 }
@@ -61,8 +73,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  titleStyle: {
-    fontSize: '40%',
+  titleStyleLight: {
+    fontSize: 35,
+    fontWeight: '600',
+    paddingLeft: 22,
+    fontFamily: 'fira-sans-regular',
+  },
+  titleStyleDark: {
+    color: 'white',
+    fontSize: 35,
     fontWeight: '600',
     paddingLeft: 22,
     fontFamily: 'fira-sans-regular',

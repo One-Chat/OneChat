@@ -1,10 +1,10 @@
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-
 //Screens//
 import SavedLinks from './SavedLinks';
 import SavedMedia from './SavedMedia';
 import SavedMessages from './SavedMessages';
 
+// Navigation //
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 const Tab = createMaterialTopTabNavigator();
 
 export default function SavedTabs() {

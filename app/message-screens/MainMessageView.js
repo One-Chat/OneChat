@@ -8,18 +8,29 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import ChatBox from './ChatBox';
-import Controls from '../Controls';
+import MessageBox from './MessageBox';
 import PinnedFriends from './PinnedFriends';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export default function MainChatView({ navigation }) {
+// Theme //
+import { useColorScheme } from 'react-native';
+
+export default function MainMessageView({ navigation }) {
+  const colorScheme = useColorScheme();
   const [text, onChangeText] = useState('');
 
   return (
     <View style={styles.mainContainer}>
       <SafeAreaView style={styles.titleContainer}>
-        <Text style={styles.titleStyle}>Chats</Text>
+        <Text
+          style={
+            colorScheme === 'dark'
+              ? styles.titleStyleDark
+              : styles.titleStyleLight
+          }
+        >
+          Messages
+        </Text>
 
         {/* create new chat */}
         <TouchableOpacity
@@ -31,23 +42,39 @@ export default function MainChatView({ navigation }) {
             name='chatbubbles-outline'
             size={25}
             style={{ right: 20 }}
+            color={colorScheme === 'dark' ? 'white' : 'black'}
           />
         </TouchableOpacity>
       </SafeAreaView>
 
       {/* search input */}
-      <ScrollView style={{ flex: 1 }}>
-        <View style={styles.searchSection}>
+      <View
+        nestedScrollEnabled={true}
+        showsVerticalScrollIndicator={false}
+        style={{ flex: 1 }}
+      >
+        <View
+          style={
+            colorScheme === 'dark'
+              ? styles.searchSectionDark
+              : styles.searchSectionLight
+          }
+        >
           <Ionicons
             name='search-outline'
             size={25}
             style={{ alignSelf: 'center', left: 3 }}
+            color='gray'
           />
           <TextInput
-            placeholder='Search Chat ...'
+            placeholder='Search'
             onChangeText={onChangeText}
             value={text}
-            style={styles.textInput}
+            style={
+              colorScheme === 'dark'
+                ? styles.textInputDark
+                : styles.textInputLight
+            }
           />
         </View>
 
@@ -55,51 +82,15 @@ export default function MainChatView({ navigation }) {
 
         <View style={styles.friendContainer}>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-            <PinnedFriends
-              profilePicture={require('../assets/kirby.png')}
-              name='Kirby'
-            />
-            <PinnedFriends
-              profilePicture={require('../assets/one.jpeg')}
-              name='Saitama'
-            />
-            <PinnedFriends
-              profilePicture={require('../assets/mobu.png')}
-              name='Mobu'
-            />
-            <PinnedFriends
-              profilePicture={require('../assets/bart.png')}
-              name='Bart'
-            />
-            <PinnedFriends
-              profilePicture={require('../assets/bart.png')}
-              name='Bart'
-            />
-            <PinnedFriends
-              profilePicture={require('../assets/bart.png')}
-              name='Bart'
-            />
+            <PinnedFriends />
           </ScrollView>
         </View>
 
         {/* Chats */}
         <View style={styles.chatContainer}>
-          {/* TEST .... */}
-          <ChatBox />
-          <ChatBox />
-          <ChatBox />
-          <ChatBox />
-          <ChatBox />
-          <ChatBox />
-          <ChatBox />
-          <ChatBox />
-          <ChatBox />
-          <ChatBox />
-          <ChatBox />
-          <ChatBox />
+          <MessageBox navigation={navigation} />
         </View>
-      </ScrollView>
-      {/* <Controls navigation={navigation} /> */}
+      </View>
     </View>
   );
 }
@@ -117,33 +108,54 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  titleStyle: {
-    fontSize: '40%',
+  titleStyleLight: {
+    fontSize: 35,
     fontWeight: '600',
     paddingLeft: 22,
     fontFamily: 'fira-sans-regular',
   },
-  textInput: {
+  titleStyleDark: {
+    color: 'white',
+    fontSize: 35,
+    fontWeight: '600',
+    paddingLeft: 22,
+    fontFamily: 'fira-sans-regular',
+  },
+  textInputLight: {
     width: '80%',
     padding: 10,
     alignSelf: 'center',
   },
-  searchSection: {
+  textInputDark: {
+    color: 'white',
+    width: '80%',
+    padding: 10,
+    alignSelf: 'center',
+  },
+  searchSectionLight: {
+    backgroundColor: 'lightgray',
     flex: 0.7,
     flexDirection: 'row',
     alignSelf: 'center',
-    borderWidth: 1,
+    width: '90%',
+    borderRadius: 10,
+    margin: '5%',
+  },
+  searchSectionDark: {
+    backgroundColor: '#121212',
+    flex: 0.7,
+    flexDirection: 'row',
+    alignSelf: 'center',
     width: '90%',
     borderRadius: 10,
     margin: '5%',
   },
   friendContainer: {
-    flex: 2,
     alignSelf: 'center',
     width: '90%',
-    flexDirection: 'row',
   },
   chatContainer: {
-    flex: 11,
+    flex: 10,
+    marginBottom: 30,
   },
 });
