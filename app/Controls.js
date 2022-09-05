@@ -42,8 +42,16 @@ const ChatStackScreen = () => {
   );
 };
 
-///  Main Control ///
+// Hide TabBar in ChatView //
+const getRouteName = (route) => {
+  const routeName = getFocusedRouteNameFromRoute(route);
+  if (routeName?.includes('ChatView')) {
+    return 'none';
+  }
+  return 'absolute';
+};
 
+///  Main Control ///
 export default function MainControl() {
   const colorScheme = useColorScheme();
 
@@ -65,7 +73,18 @@ export default function MainControl() {
       <Tab.Screen
         name='Chat'
         component={ChatStackScreen}
-        options={{
+        options={({ route }) => ({
+          tabBarStyle: {
+            display: getRouteName(route),
+            width: '80%',
+            position: 'absolute',
+            marginBottom: '10%',
+            borderRadius: 50,
+            overflow: 'hidden',
+            left: 40,
+            paddingBottom: 0,
+            justifyContent: 'space-around',
+          },
           headerShown: false,
           tabBarIcon: ({ focused }) =>
             !focused ? (
@@ -81,7 +100,7 @@ export default function MainControl() {
                 color={colorScheme === 'dark' ? 'white' : 'black'}
               />
             ),
-        }}
+        })}
       />
       <Tab.Screen
         name='Calls'
