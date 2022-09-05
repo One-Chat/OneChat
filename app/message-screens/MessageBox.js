@@ -39,6 +39,8 @@ export default function MessageBox({ navigation }) {
               navigation.navigate('ChatView', {
                 userName: item.userName,
                 userImg: item.userImg,
+                id: item.id,
+                message: item.message,
               });
             }}
           >

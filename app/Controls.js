@@ -42,7 +42,7 @@ const ChatStackScreen = () => {
   );
 };
 
-// Hide TabBar in ChatView //
+// Hide TabBar Function //
 const getRouteName = (route) => {
   const routeName = getFocusedRouteNameFromRoute(route);
   if (routeName?.includes('ChatView')) {
