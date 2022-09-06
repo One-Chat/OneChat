@@ -1,12 +1,17 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { View, Image } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import Ionicons from 'react-native-vector-icons/FontAwesome';
 
-import { GiftedChat } from 'react-native-gifted-chat';
+import { GiftedChat, InputToolbar, Send } from 'react-native-gifted-chat';
 
 // Header //
 import ChatViewHeader from './ChatViewHeader';
 
+// Theme //
+import { useColorScheme } from 'react-native';
+
 export default function ChatView({ navigation: { goBack }, route }) {
+  const colorScheme = useColorScheme();
   const [messages, setMessages] = useState([]);
   const { userName, userImg, id, message } = route.params;
 
@@ -32,13 +37,61 @@ export default function ChatView({ navigation: { goBack }, route }) {
     );
   }, []);
 
+  // Gifted Chat Styles //
+  const renderInputToolbar = (props) => {
+    return (
+      <InputToolbar
+        {...props}
+        containerStyle={
+          colorScheme === 'dark'
+            ? { backgroundColor: 'black' }
+            : { backgroundColor: 'white' }
+        }
+        textInputStyle={
+          colorScheme === 'dark' ? { color: 'white' } : { color: 'black' }
+        }
+      />
+    );
+  };
+
+  const renderSend = (props) => {
+    return (
+      <Send {...props}>
+        <View>
+          <Ionicons
+            name='send'
+            size={21}
+            color='#307acf'
+            style={{ marginRight: 15, marginBottom: 15 }}
+          />
+        </View>
+      </Send>
+    );
+  };
+
+  const scrollToBottomComponent = () => {
+    return <Ionicons name='angle-double-down' size={21} color='#333' />;
+  };
+
   return (
-    <View style={{ flex: 1 }}>
+    <View
+      style={
+        colorScheme === 'dark'
+          ? styles.mainContainerDark
+          : styles.mainContainerLight
+      }
+    >
       <ChatViewHeader goBack={goBack} route={route} />
       <GiftedChat
         messages={messages}
         onSend={(messages) => onSend(messages)}
+        isTyping={true}
         bottomOffset={32}
+        alwaysShowSend={true}
+        renderSend={renderSend}
+        renderInputToolbar={renderInputToolbar}
+        scrollToBottom
+        scrollToBottomComponent={scrollToBottomComponent}
         user={{
           _id: 1,
           avatar: require('../assets/rick.jpeg'),
@@ -47,3 +100,18 @@ export default function ChatView({ navigation: { goBack }, route }) {
     </View>
   );
 }
+
+//// Style ////
+
+const styles = StyleSheet.create({
+  mainContainerLight: {
+    flex: 1,
+    backgroundColor: 'white',
+    paddingHorizontal: 5,
+  },
+  mainContainerDark: {
+    flex: 1,
+    backgroundColor: 'Black',
+    paddingHorizontal: 5,
+  },
+});

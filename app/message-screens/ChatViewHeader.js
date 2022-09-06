@@ -17,7 +17,13 @@ export default function ChatViewHeader({ goBack, route }) {
 
   return (
     <View style={styles.mainContainer}>
-      <SafeAreaView style={styles.userContainer}>
+      <SafeAreaView
+        style={
+          colorScheme === 'dark'
+            ? styles.userContainerDark
+            : styles.userContainerLight
+        }
+      >
         <View style={styles.imgContainer}>
           <Image source={userImg} style={styles.imgStyle} />
         </View>
@@ -51,13 +57,21 @@ const styles = StyleSheet.create({
   mainContainer: {
     justifyContent: 'center',
   },
-  userContainer: {
+  userContainerLight: {
     alignItems: 'center',
     alignSelf: 'center',
     width: '90%',
     flexDirection: 'row',
     borderBottomWidth: 1,
     borderColor: 'lightgray',
+  },
+  userContainerDark: {
+    alignItems: 'center',
+    alignSelf: 'center',
+    width: '90%',
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderColor: '#121212',
   },
   imgContainer: {
     paddingTop: 15,
