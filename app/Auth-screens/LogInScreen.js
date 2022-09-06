@@ -10,19 +10,24 @@ import {
 import { Button, TextInput } from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/FontAwesome';
 
-export default function LoginScreen() {
+// Theme //
+import { useColorScheme } from 'react-native';
+
+export default function LoginScreen({ navigation }) {
+  const colorScheme = useColorScheme();
+
   const [secureTextEntry, setSecureTextEntry] = useState(true);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.mainContainer}>
         <SafeAreaView style={styles.introContainer}>
           <Text
-            style={{
-              fontSize: 40,
-              fontFamily: 'fira-sans-regular',
-              padding: 20,
-            }}
+            style={
+              colorScheme === 'dark' ? styles.titleDark : styles.titleLight
+            }
           >
             Welcome Back !
           </Text>
@@ -35,8 +40,8 @@ export default function LoginScreen() {
           <TextInput
             mode='outlined'
             label='Email'
-            //   value={}
-            //   onChangeText={}
+            value={email}
+            onChangeText={(text) => setEmail(text)}
           />
           <TextInput
             secureTextEntry={secureTextEntry}
@@ -50,8 +55,8 @@ export default function LoginScreen() {
                 }}
               />
             }
-            //   value={}
-            //   onChangeText={}
+            value={password}
+            onChangeText={(text) => setPassword(text)}
           />
           <TouchableWithoutFeedback>
             <Text
@@ -86,13 +91,18 @@ export default function LoginScreen() {
               fontFamily: 'fira-sans-light',
               alignSelf: 'center',
               marginVertical: 50,
+              color: 'gray',
             }}
           >
             ⎯⎯⎯⎯⎯⎯⎯ Or Log in with ⎯⎯⎯⎯⎯⎯⎯
           </Text>
           <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
             <Button>
-              <Ionicons name='github' size={50} color='black' />
+              <Ionicons
+                name='github'
+                size={50}
+                color={colorScheme === 'dark' ? 'white' : 'black'}
+              />
             </Button>
             <Button>
               <Ionicons name='facebook' size={50} color='#4267B2' />
@@ -106,7 +116,11 @@ export default function LoginScreen() {
           <Text style={{ color: 'gray', fontFamily: 'fira-sans-light' }}>
             Not a member?
           </Text>
-          <TouchableWithoutFeedback>
+          <TouchableWithoutFeedback
+            onPress={() => {
+              navigation.navigate('Signup');
+            }}
+          >
             <Text
               style={{
                 color: 'blue',
@@ -140,5 +154,16 @@ const styles = StyleSheet.create({
   buttomContainer: {
     marginTop: 30,
     width: '70%',
+  },
+  titleLight: {
+    fontSize: 40,
+    fontFamily: 'fira-sans-regular',
+    padding: 20,
+  },
+  titleDark: {
+    fontSize: 40,
+    fontFamily: 'fira-sans-regular',
+    padding: 20,
+    color: 'white',
   },
 });

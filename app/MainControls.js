@@ -52,7 +52,7 @@ const getRouteName = (route) => {
 };
 
 ///  Main Control ///
-export default function MainControl() {
+export default function MainControls() {
   const colorScheme = useColorScheme();
 
   return (

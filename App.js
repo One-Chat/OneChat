@@ -7,8 +7,8 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
 //Control//
-import Controls from './app/Controls';
-import LoginScreen from './app/LogInScreen';
+import MainControls from './app/MainControls';
+import AuthStack from './app/Auth-screens/AuthStack';
 
 //Navigation//
 import {
@@ -61,7 +61,7 @@ export default function App() {
       <View style={styles.container} onLayout={onLayoutRootView}>
         <StatusBar />
         {/* <Controls /> */}
-        <LoginScreen />
+        <AuthStack />
       </View>
     </NavigationContainer>
   );
