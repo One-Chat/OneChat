@@ -8,6 +8,7 @@ import * as SplashScreen from 'expo-splash-screen';
 
 //Control//
 import Controls from './app/Controls';
+import LoginScreen from './app/LogInScreen';
 
 //Navigation//
 import {
@@ -59,7 +60,8 @@ export default function App() {
     >
       <View style={styles.container} onLayout={onLayoutRootView}>
         <StatusBar />
-        <Controls />
+        {/* <Controls /> */}
+        <LoginScreen />
       </View>
     </NavigationContainer>
   );
