@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -13,8 +13,12 @@ import SavedTabs from './saved-screens/SavedTab';
 // Theme //
 import { useColorScheme } from 'react-native';
 
+// User Info //
+import { AuthContext } from '../Auth-screens/AuthContextProvider';
+
 export default function Profile() {
   const colorScheme = useColorScheme();
+  const { user } = useContext(AuthContext);
 
   return (
     <View style={styles.mainContainer}>
@@ -54,7 +58,7 @@ export default function Profile() {
           colorScheme === 'dark' ? styles.userNameDark : styles.userNameLight
         }
       >
-        Thomas Lin
+        {user.displayName}
       </Text>
       <Text style={styles.memberInfo}>Member Since 2022</Text>
       <Text

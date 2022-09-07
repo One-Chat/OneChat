@@ -79,7 +79,7 @@ export default function SignupScreen({ navigation }) {
               height: 50,
               justifyContent: 'center',
             }}
-            onPress={() => signUp(email, password)}
+            onPress={() => signUp(email, password, name)}
           >
             Sign Up
           </Button>
