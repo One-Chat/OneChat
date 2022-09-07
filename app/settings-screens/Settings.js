@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Button } from 'react-native-paper';
 
 // Theme //
 import { useColorScheme } from 'react-native';
 
+// Auth //
+import { AuthContext } from '../Auth-screens/AuthContextProvider';
+
 export default function Settings() {
   const colorScheme = useColorScheme();
+  const { signOut } = useContext(AuthContext);
 
   return (
     <View style={styles.mainContainer}>
@@ -21,6 +26,8 @@ export default function Settings() {
           Settings
         </Text>
       </SafeAreaView>
+
+      <Button onPress={signOut}> Log out</Button>
     </View>
   );
 }

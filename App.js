@@ -1,33 +1,22 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useCallback } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 
 // Fonts //
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
-//Control//
-import Controls from './app/Controls';
-
-//Navigation//
-import {
-  NavigationContainer,
-  DefaultTheme,
-  DarkTheme,
-} from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-const Stack = createNativeStackNavigator();
-
-// Theme //
-import { useColorScheme } from 'react-native';
+//Route//
+import Routes from './app/Routes';
 
 ////To-fix/////
 import { LogBox } from 'react-native';
 LogBox.ignoreLogs(['Sending']);
 
-export default function App() {
-  const colorScheme = useColorScheme();
+// Auth //
+import { AuthProvider } from './app/Auth-screens/AuthContextProvider';
 
+export default function App() {
   //// Load Fonts ////
   const [fontsLoaded] = useFonts({
     'fira-sans-light': require('./app/assets/fonts/FiraSans-Light.ttf'),
@@ -54,20 +43,11 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer
-      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
-    >
-      <View style={styles.container} onLayout={onLayoutRootView}>
+    <AuthProvider>
+      <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
         <StatusBar />
-        <Controls />
+        <Routes />
       </View>
-    </NavigationContainer>
+    </AuthProvider>
   );
 }
-
-//// Style ////
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
