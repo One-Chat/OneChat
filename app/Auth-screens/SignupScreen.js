@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import {
   View,
   StyleSheet,
@@ -13,6 +13,9 @@ import Ionicons from 'react-native-vector-icons/FontAwesome';
 // Theme //
 import { useColorScheme } from 'react-native';
 
+// Auth //
+import { AuthContext } from './AuthContextProvider';
+
 export default function SignupScreen({ navigation }) {
   const colorScheme = useColorScheme();
 
@@ -20,6 +23,8 @@ export default function SignupScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
+
+  const { signUp } = useContext(AuthContext);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -74,9 +79,7 @@ export default function SignupScreen({ navigation }) {
               height: 50,
               justifyContent: 'center',
             }}
-            onPress={() => {
-              alert('login');
-            }}
+            onPress={() => signUp(email, password)}
           >
             Sign Up
           </Button>

@@ -1,6 +1,3 @@
-import React, { useState, useEffect } from 'react';
-import { View } from 'react-native';
-
 // Screens //
 import LoginScreen from './LogInScreen';
 import SignupScreen from './SignupScreen';

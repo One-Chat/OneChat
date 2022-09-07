@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import {
   View,
   StyleSheet,
@@ -13,12 +13,17 @@ import Ionicons from 'react-native-vector-icons/FontAwesome';
 // Theme //
 import { useColorScheme } from 'react-native';
 
+// Auth //
+import { AuthContext } from './AuthContextProvider';
+
 export default function LoginScreen({ navigation }) {
   const colorScheme = useColorScheme();
 
   const [secureTextEntry, setSecureTextEntry] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const { logIn } = useContext(AuthContext);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -79,9 +84,7 @@ export default function LoginScreen({ navigation }) {
               height: 50,
               justifyContent: 'center',
             }}
-            onPress={() => {
-              alert('login');
-            }}
+            onPress={() => logIn(email, password)}
           >
             Log In
           </Button>
