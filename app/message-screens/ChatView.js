@@ -1,8 +1,13 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import Ionicons from 'react-native-vector-icons/FontAwesome';
-
-import { GiftedChat, InputToolbar, Send } from 'react-native-gifted-chat';
+import * as ImagePicker from 'expo-image-picker';
+import {
+  GiftedChat,
+  InputToolbar,
+  Send,
+  Actions,
+} from 'react-native-gifted-chat';
 
 // Header //
 import ChatViewHeader from './ChatViewHeader';
@@ -37,35 +42,95 @@ export default function ChatView({ navigation: { goBack }, route }) {
     );
   }, []);
 
+  // Send Img //
+  const pickImage = async (onSend) => {
+    //---- ASK for permissions ----//
+    // const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    // const hasStoragePermissionGranted = status === 'granted';
+    // if (!hasStoragePermissionGranted) return null;
+    //---- ASK for permissions ----//
+
+    // No permissions //
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+    });
+
+    if (!result.cancelled) {
+      onSend([{ image: result.uri }]);
+      return result.uri;
+    }
+  };
+
   // Gifted Chat Styles //
   const renderInputToolbar = (props) => {
     return (
       <InputToolbar
         {...props}
-        containerStyle={
-          colorScheme === 'dark'
-            ? { backgroundColor: 'black' }
-            : { backgroundColor: 'white' }
-        }
-        textInputStyle={
-          colorScheme === 'dark' ? { color: 'white' } : { color: 'black' }
-        }
+        containerStyle={{
+          backgroundColor: colorScheme === 'dark' ? '#121212' : 'lightgray',
+          borderRadius: 25,
+          marginHorizontal: 20,
+          height: 40,
+          borderTopWidth: 0,
+          justifyContent: 'center',
+          alignContent: 'center',
+        }}
+        textInputStyle={{
+          marginTop: 15,
+          color: colorScheme === 'dark' ? 'white' : 'black',
+        }}
       />
     );
   };
 
   const renderSend = (props) => {
     return (
-      <Send {...props}>
-        <View>
-          <Ionicons
-            name='send'
-            size={21}
-            color='#307acf'
-            style={{ marginRight: 15, marginBottom: 15 }}
-          />
-        </View>
-      </Send>
+      <View style={{ flexDirection: 'row' }}>
+        <Send {...props} containerStyle={{ padding: 0, marginRight: 20 }}>
+          <View style={{ flexDirection: 'row' }}>
+            <Ionicons
+              name='send'
+              size={21}
+              color='#307acf'
+              style={{ marginBottom: 16 }}
+            />
+          </View>
+        </Send>
+        <TouchableWithoutFeedback
+          onPress={() => {
+            alert('send voice message');
+          }}
+        >
+          <View style={{ marginTop: 8, right: 25 }}>
+            <Ionicons
+              name='microphone'
+              size={21}
+              color='#307acf'
+              style={{
+                bottom: 15,
+                right: 10,
+                display: props.text === '' ? 'absolute' : 'none',
+              }}
+            />
+          </View>
+        </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={pickImage}>
+          <View style={{ marginTop: 8, right: 8 }}>
+            <Ionicons
+              name='photo'
+              size={21}
+              color='#307acf'
+              style={{
+                bottom: 15,
+                right: 10,
+                display: props.text === '' ? 'absolute' : 'none',
+              }}
+            />
+          </View>
+        </TouchableWithoutFeedback>
+      </View>
     );
   };
 
@@ -88,11 +153,12 @@ export default function ChatView({ navigation: { goBack }, route }) {
         onSend={(messages) => onSend(messages)}
         isTyping={true}
         bottomOffset={32}
-        alwaysShowSend={true}
+        // alwaysShowSend={true}
         renderSend={renderSend}
         renderInputToolbar={renderInputToolbar}
         scrollToBottom
         scrollToBottomComponent={scrollToBottomComponent}
+        // renderActions={() => renderActions()}
         user={{
           _id: 1,
           avatar: require('../assets/rick.jpeg'),
