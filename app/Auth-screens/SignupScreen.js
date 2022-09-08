@@ -105,7 +105,7 @@ export default function SignupScreen({ navigation }) {
             <Button>
               <Ionicons name='facebook' size={50} color='#4267B2' />
             </Button>
-            <Button>
+            <Button onPress={{}}>
               <Ionicons name='google' size={50} color='#DB4437' />
             </Button>
           </View>

@@ -19,6 +19,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         user,
         setUser,
+        // Log in //
         logIn: (email, password) => {
           signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
@@ -31,6 +32,7 @@ export const AuthProvider = ({ children }) => {
               const errorMessage = error.message;
             });
         },
+        // Sign up //
         signUp: (email, password, name) => {
           createUserWithEmailAndPassword(auth, email, password, name)
             .then((userCredential) => {
@@ -45,6 +47,7 @@ export const AuthProvider = ({ children }) => {
               // ..
             });
         },
+        // Sign out //
         signOut: () => {
           signOut(auth)
             .then(() => {
@@ -53,20 +56,6 @@ export const AuthProvider = ({ children }) => {
             .catch((e) => {
               console.log(e);
             });
-        },
-        userInfo: () => {
-          onAuthStateChanged(auth, (user) => {
-            if (user) {
-              // User is signed in, see docs for a list of available properties
-              // https://firebase.google.com/docs/reference/js/firebase.User
-              const uid = user.uid;
-              const name = user.name;
-              // ...
-            } else {
-              // User is signed out
-              // ...
-            }
-          });
         },
       }}
     >

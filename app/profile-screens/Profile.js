@@ -60,7 +60,7 @@ export default function Profile() {
       >
         {user.displayName}
       </Text>
-      <Text style={styles.memberInfo}>Member Since 2022</Text>
+      <Text style={styles.memberInfo}>{user.email}</Text>
       <Text
         style={colorScheme === 'dark' ? styles.statusDark : styles.statusLight}
       >
