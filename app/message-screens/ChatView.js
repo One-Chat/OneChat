@@ -75,11 +75,12 @@ export default function ChatView({ navigation: { goBack }, route }) {
 
   return (
     <View
-      style={
-        colorScheme === 'dark'
-          ? styles.mainContainerDark
-          : styles.mainContainerLight
-      }
+      style={[
+        styles.mainContainer,
+        {
+          backgroundColor: colorScheme === 'light' ? 'white' : 'black',
+        },
+      ]}
     >
       <ChatViewHeader goBack={goBack} route={route} />
       <GiftedChat
@@ -104,14 +105,8 @@ export default function ChatView({ navigation: { goBack }, route }) {
 //// Style ////
 
 const styles = StyleSheet.create({
-  mainContainerLight: {
+  mainContainer: {
     flex: 1,
-    backgroundColor: 'white',
-    paddingHorizontal: 5,
-  },
-  mainContainerDark: {
-    flex: 1,
-    backgroundColor: 'Black',
     paddingHorizontal: 5,
   },
 });

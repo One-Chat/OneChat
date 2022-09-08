@@ -21,11 +21,12 @@ export default function CallsBox() {
 
           <View style={styles.info}>
             <Text
-              style={
-                colorScheme === 'dark'
-                  ? styles.textStyleDark
-                  : styles.textStyleLight
-              }
+              style={[
+                styles.textStyle,
+                {
+                  color: colorScheme === 'dark' ? 'white' : 'black',
+                },
+              ]}
             >
               {item.userName}
             </Text>
@@ -69,14 +70,9 @@ const styles = StyleSheet.create({
   info: {
     justifyContent: 'space-evenly',
   },
-  textStyleLight: {
+  textStyle: {
     fontFamily: 'fira-sans-regular',
     fontSize: '18rem',
-  },
-  textStyleDark: {
-    fontFamily: 'fira-sans-regular',
-    fontSize: '18rem',
-    color: 'white',
   },
   time: {
     flex: 1,

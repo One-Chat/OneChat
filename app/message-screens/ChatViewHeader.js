@@ -18,18 +18,24 @@ export default function ChatViewHeader({ goBack, route }) {
   return (
     <View style={styles.mainContainer}>
       <SafeAreaView
-        style={
-          colorScheme === 'dark'
-            ? styles.userContainerDark
-            : styles.userContainerLight
-        }
+        style={[
+          styles.userContainer,
+          {
+            borderColor: colorScheme === 'dark' ? '#121212' : 'lightgray',
+          },
+        ]}
       >
         <View style={styles.imgContainer}>
           <Image source={userImg} style={styles.imgStyle} />
         </View>
         <View style={styles.infoContainer}>
           <Text
-            style={colorScheme === 'dark' ? styles.nameDark : styles.nameLight}
+            style={[
+              styles.nameStyle,
+              {
+                color: colorScheme === 'dark' ? 'white' : 'black',
+              },
+            ]}
           >
             {userName}
           </Text>
@@ -57,21 +63,12 @@ const styles = StyleSheet.create({
   mainContainer: {
     justifyContent: 'center',
   },
-  userContainerLight: {
+  userContainer: {
     alignItems: 'center',
     alignSelf: 'center',
     width: '90%',
     flexDirection: 'row',
     borderBottomWidth: 1,
-    borderColor: 'lightgray',
-  },
-  userContainerDark: {
-    alignItems: 'center',
-    alignSelf: 'center',
-    width: '90%',
-    flexDirection: 'row',
-    borderBottomWidth: 1,
-    borderColor: '#121212',
   },
   imgContainer: {
     paddingTop: 15,
@@ -82,12 +79,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 50,
   },
-  nameLight: {
-    fontFamily: 'fira-sans-regular',
-    fontSize: '23rem',
-  },
-  nameDark: {
-    color: 'white',
+  nameStyle: {
     fontFamily: 'fira-sans-regular',
     fontSize: '23rem',
   },

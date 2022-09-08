@@ -11,11 +11,12 @@ export default function Community() {
     <View style={styles.mainContainer}>
       <SafeAreaView style={styles.titleContainer}>
         <Text
-          style={
-            colorScheme === 'dark'
-              ? styles.titleStyleDark
-              : styles.titleStyleLight
-          }
+          style={[
+            styles.titleStyle,
+            {
+              color: colorScheme === 'dark' ? 'white' : 'black',
+            },
+          ]}
         >
           Community
         </Text>
@@ -36,14 +37,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  titleStyleLight: {
-    fontSize: 35,
-    fontWeight: '600',
-    paddingLeft: 22,
-    fontFamily: 'fira-sans-regular',
-  },
-  titleStyleDark: {
-    color: 'white',
+  titleStyle: {
     fontSize: 35,
     fontWeight: '600',
     paddingLeft: 22,

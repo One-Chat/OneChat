@@ -60,15 +60,16 @@ export default function Profile() {
 
   // db //
 
-  https: return (
+  return (
     <View style={styles.mainContainer}>
       <SafeAreaView style={styles.titleContiner}>
         <Text
-          style={
-            colorScheme === 'dark'
-              ? styles.titleStyleDark
-              : styles.titleStyleLight
-          }
+          style={[
+            styles.titleStyle,
+            {
+              color: colorScheme === 'dark' ? 'white' : 'black',
+            },
+          ]}
         >
           Profile
         </Text>
@@ -93,9 +94,12 @@ export default function Profile() {
       </View>
 
       <Text
-        style={
-          colorScheme === 'dark' ? styles.userNameDark : styles.userNameLight
-        }
+        style={[
+          styles.userName,
+          {
+            color: colorScheme === 'dark' ? 'white' : 'black',
+          },
+        ]}
       >
         {user.displayName}
       </Text>
@@ -108,9 +112,13 @@ export default function Profile() {
         }}
       >
         <Text
-          style={
-            colorScheme === 'dark' ? styles.statusDark : styles.statusLight
-          }
+          style={[
+            styles.status,
+            {
+              color: colorScheme === 'dark' ? 'white' : 'black',
+              borderColor: colorScheme === 'dark' ? 'white' : 'black',
+            },
+          ]}
         >
           {status}
         </Text>
@@ -135,14 +143,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  titleStyleLight: {
-    fontSize: 35,
-    fontWeight: '600',
-    paddingLeft: 22,
-    fontFamily: 'fira-sans-regular',
-  },
-  titleStyleDark: {
-    color: 'white',
+  titleStyle: {
     fontSize: 35,
     fontWeight: '600',
     paddingLeft: 22,
@@ -156,15 +157,7 @@ const styles = StyleSheet.create({
     height: 200,
     borderColor: '#AC7088',
   },
-  userNameLight: {
-    fontFamily: 'fira-sans-regular',
-    fontSize: 35,
-    alignSelf: 'center',
-    marginTop: '5%',
-    marginBottom: '2%',
-  },
-  userNameDark: {
-    color: 'white',
+  userName: {
     fontFamily: 'fira-sans-regular',
     fontSize: 35,
     alignSelf: 'center',
@@ -176,19 +169,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: 'gray',
   },
-  statusLight: {
+  status: {
     borderColor: 'black',
-    marginTop: '5%',
-    fontFamily: 'fira-sans-regular',
-    alignSelf: 'center',
-    padding: '2.5%',
-    // borderWidth: 1,
-    alignSelf: 'center',
-    borderRadius: 10,
-  },
-  statusDark: {
-    color: 'white',
-    borderColor: 'white',
     marginTop: '5%',
     fontFamily: 'fira-sans-regular',
     alignSelf: 'center',

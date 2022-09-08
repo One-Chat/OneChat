@@ -30,9 +30,12 @@ export default function LoginScreen({ navigation }) {
       <View style={styles.mainContainer}>
         <SafeAreaView style={styles.introContainer}>
           <Text
-            style={
-              colorScheme === 'dark' ? styles.titleDark : styles.titleLight
-            }
+            style={[
+              styles.titleStyle,
+              {
+                color: colorScheme === 'dark' ? 'white' : 'black',
+              },
+            ]}
           >
             Welcome Back !
           </Text>
@@ -158,15 +161,9 @@ const styles = StyleSheet.create({
     marginTop: 30,
     width: '70%',
   },
-  titleLight: {
+  titleStyle: {
     fontSize: 40,
     fontFamily: 'fira-sans-regular',
     padding: 20,
-  },
-  titleDark: {
-    fontSize: 40,
-    fontFamily: 'fira-sans-regular',
-    padding: 20,
-    color: 'white',
   },
 });

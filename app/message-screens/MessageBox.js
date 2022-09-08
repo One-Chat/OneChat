@@ -25,9 +25,10 @@ export default function MessageBox({ navigation }) {
 
   return (
     <View
-      style={
-        colorScheme === 'dark' ? styles.containerDark : styles.containerLight
-      }
+      style={[
+        styles.container,
+        { color: colorScheme === 'dark' ? 'white' : 'black' },
+      ]}
     >
       <FlatList
         showsVerticalScrollIndicator={false}
@@ -45,21 +46,22 @@ export default function MessageBox({ navigation }) {
             }}
           >
             <View
-              style={
-                colorScheme === 'dark'
-                  ? styles.imgContainerDark
-                  : styles.imgContainerLight
-              }
+              style={[
+                styles.imgContainer,
+                {
+                  borderBottomColor:
+                    colorScheme === 'dark' ? '#121212' : 'lightgray',
+                },
+              ]}
             >
               <Image source={item.userImg} style={styles.pictures} />
             </View>
             <View style={styles.infoContainer}>
               <Text
-                style={
-                  colorScheme === 'dark'
-                    ? styles.textStyleDark
-                    : styles.textStyleLight
-                }
+                style={[
+                  styles.textStyle,
+                  { color: colorScheme === 'dark' ? 'white' : 'black' },
+                ]}
               >
                 {item.userName}
               </Text>
@@ -79,7 +81,7 @@ export default function MessageBox({ navigation }) {
 //// Style ////
 
 const styles = StyleSheet.create({
-  containerLight: {
+  container: {
     padding: '3%',
     flexDirection: 'row',
     margin: '3%',
@@ -87,25 +89,10 @@ const styles = StyleSheet.create({
     width: '90%',
     height: 'auto',
   },
-  containerDark: {
-    padding: '3%',
-    flexDirection: 'row',
-    margin: '3%',
-    alignSelf: 'center',
-    width: '90%',
-    height: 'auto',
-  },
-  imgContainerLight: {
+  imgContainer: {
     paddingTop: 15,
     paddingBottom: 15,
     borderBottomWidth: 1,
-    borderBottomColor: 'lightgray',
-  },
-  imgContainerDark: {
-    paddingTop: 15,
-    paddingBottom: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: '#121212',
   },
   pictures: {
     height: 50,
@@ -117,11 +104,6 @@ const styles = StyleSheet.create({
   textStyleLight: {
     fontFamily: 'fira-sans-regular',
     fontSize: '18rem',
-  },
-  textStyleDark: {
-    fontFamily: 'fira-sans-regular',
-    fontSize: '18rem',
-    color: 'white',
   },
   infoContainer: {
     margin: '1.5%',
