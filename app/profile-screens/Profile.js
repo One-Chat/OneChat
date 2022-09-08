@@ -1,7 +1,8 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import * as ImagePicker from 'expo-image-picker';
 
 // Navigation //
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
@@ -13,14 +14,44 @@ import SavedTabs from './saved-screens/SavedTab';
 // Theme //
 import { useColorScheme } from 'react-native';
 
-// User Info //
+// Auth //
 import { AuthContext } from '../Auth-screens/AuthContextProvider';
+import { updateProfile } from 'firebase/auth';
+import { auth } from '../../firebase';
+
+// storage //
+import { storage } from '../../firebase';
+import { ref, uploadBytesResumable } from 'firebase/storage';
 
 export default function Profile() {
   const colorScheme = useColorScheme();
   const { user } = useContext(AuthContext);
+  const [profileImg, setProfileImg] = useState(user.photoURL);
 
-  return (
+  // Img Picker //
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      // Save to firebase storage //
+      const fileName = result.uri.split('/').pop();
+      const storageRef = ref(storage, `users/${user.email}/img/${fileName}`);
+      // uploadBytesResumable(storageRef, result);
+
+      setProfileImg(result.uri);
+      updateProfile(auth.currentUser, { photoURL: result.uri });
+    }
+  };
+
+  // db //
+
+  https: return (
     <View style={styles.mainContainer}>
       <SafeAreaView style={styles.titleContiner}>
         <Text
@@ -47,10 +78,9 @@ export default function Profile() {
       </SafeAreaView>
 
       <View style={styles.imgContainer}>
-        <Image
-          source={require('../assets/rick.jpeg')}
-          style={styles.profileImg}
-        />
+        <TouchableOpacity style={styles.imgBtn} onPress={pickImage}>
+          <Image source={{ uri: profileImg }} style={styles.profileImg} />
+        </TouchableOpacity>
       </View>
 
       <Text

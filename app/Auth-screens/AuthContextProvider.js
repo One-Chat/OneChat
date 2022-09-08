@@ -38,7 +38,6 @@ export const AuthProvider = ({ children }) => {
             .then((userCredential) => {
               // Signed in
               const user = userCredential.user;
-              updateProfile(auth.currentUser, { displayName: name });
               // ...
             })
             .catch((error) => {
