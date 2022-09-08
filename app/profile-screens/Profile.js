@@ -1,5 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  Alert,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import * as ImagePicker from 'expo-image-picker';
@@ -27,6 +35,7 @@ export default function Profile() {
   const colorScheme = useColorScheme();
   const { user } = useContext(AuthContext);
   const [profileImg, setProfileImg] = useState(user.photoURL);
+  const [status, setStatus] = useState('Edit Status...');
 
   // Img Picker //
   const pickImage = async () => {
@@ -91,11 +100,21 @@ export default function Profile() {
         {user.displayName}
       </Text>
       <Text style={styles.memberInfo}>{user.email}</Text>
-      <Text
-        style={colorScheme === 'dark' ? styles.statusDark : styles.statusLight}
+      <TouchableWithoutFeedback
+        onPress={() => {
+          Alert.prompt('Status', 'What are you thinking 💭 ', (newStatus) => {
+            setStatus(newStatus);
+          });
+        }}
       >
-        Pickle Rick ! 🥒{' '}
-      </Text>
+        <Text
+          style={
+            colorScheme === 'dark' ? styles.statusDark : styles.statusLight
+          }
+        >
+          {status}
+        </Text>
+      </TouchableWithoutFeedback>
 
       <View style={styles.btnContainer}>
         <SavedTabs />
@@ -163,7 +182,7 @@ const styles = StyleSheet.create({
     fontFamily: 'fira-sans-regular',
     alignSelf: 'center',
     padding: '2.5%',
-    borderWidth: 1,
+    // borderWidth: 1,
     alignSelf: 'center',
     borderRadius: 10,
   },

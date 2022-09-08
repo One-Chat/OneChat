@@ -26,8 +26,16 @@ export default function Settings() {
           Settings
         </Text>
       </SafeAreaView>
-
-      <Button onPress={signOut}> Log out</Button>
+      <View>
+        <Button
+          mode='outlined'
+          style={{ width: 100, alignSelf: 'center' }}
+          onPress={signOut}
+        >
+          {' '}
+          Log out
+        </Button>
+      </View>
     </View>
   );
 }
