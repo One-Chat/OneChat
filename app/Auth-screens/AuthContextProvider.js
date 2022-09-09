@@ -25,11 +25,10 @@ export const AuthProvider = ({ children }) => {
             .then((userCredential) => {
               // Signed in
               const user = userCredential.user;
-              // ...
             })
             .catch((error) => {
-              const errorCode = error.code;
               const errorMessage = error.message;
+              console.log(errorMessage);
             });
         },
         // Sign up //
@@ -38,12 +37,22 @@ export const AuthProvider = ({ children }) => {
             .then((userCredential) => {
               // Signed in
               const user = userCredential.user;
-              // ...
+              // update user info
+              updateProfile(auth.currentUser, {
+                displayName: name,
+              })
+                .then(() => {
+                  // Profile updated!
+                  console.log(user.displayName);
+                })
+                .catch((error) => {
+                  const errorMessage = error.message;
+                  console.log(errorMessage);
+                });
             })
             .catch((error) => {
-              const errorCode = error.code;
               const errorMessage = error.message;
-              // ..
+              console.log(errorMessage);
             });
         },
         // Sign out //

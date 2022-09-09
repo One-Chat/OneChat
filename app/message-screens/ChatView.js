@@ -1,4 +1,10 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, {
+  useState,
+  useCallback,
+  useEffect,
+  useContext,
+  useLayoutEffect,
+} from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import Ionicons from 'react-native-vector-icons/FontAwesome';
 import * as ImagePicker from 'expo-image-picker';
@@ -15,34 +21,79 @@ import ChatViewHeader from './ChatViewHeader';
 // Theme //
 import { useColorScheme } from 'react-native';
 
+// Auth //
+import { AuthContext } from '../Auth-screens/AuthContextProvider';
+import { auth, db } from '../../firebase';
+import {
+  collection,
+  addDoc,
+  onSnapshot,
+  orderBy,
+  getDocs,
+} from 'firebase/firestore';
+import { async } from '@firebase/util';
+
 export default function ChatView({ navigation: { goBack }, route }) {
   const colorScheme = useColorScheme();
   const [messages, setMessages] = useState([]);
   const { userName, userImg, id, message } = route.params;
+  const { user } = useContext(AuthContext);
 
-  useEffect(() => {
-    setMessages([
-      {
-        _id: id,
-        text: message,
+  // useEffect(() => {
+  //   setMessages([
+  //     {
+  //       _id: id,
+  //       text: message,
 
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: userName,
-          avatar: userImg,
-        },
-      },
-    ]);
-  }, []);
+  //       createdAt: new Date(),
+  //       user: {
+  //         _id: 2,
+  //         name: userName,
+  //         avatar: userImg,
+  //       },
+  //     },
+  //   ]);
+  // }, []);
 
+  // useLayoutEffect(async () => {
+  //   const unsubscribe = await getDocs(db, 'chats');
+  //   orderBy('createdAt', 'desc');
+  //   onSnapshot((snapshot) =>
+  //     setMessages(
+  //       snapshot.docs.map((doc) => ({
+  //         _id: doc.data()._id,
+  //         createdAt: doc.data().createdAt.toDate(),
+  //         text: doc.data().text,
+  //         user: doc.data().user,
+  //       }))
+  //     )
+  //   );
+  //   return unsubscribe;
+  // }, []);
+
+  /// Send Message ///
+
+  const userEmail = user.email;
   const onSend = useCallback((messages = []) => {
     setMessages((previousMessages) =>
       GiftedChat.append(previousMessages, messages)
     );
+
+    const { _id, createdAt, text, user } = messages[0];
+    try {
+      // save to firebase db //
+      const docRef = addDoc(collection(db, `chats/${userEmail}/${userName}`), {
+        _id: _id,
+        createdAt: createdAt,
+        text: text,
+        user: user,
+      });
+    } catch (e) {
+      console.error('Error adding document: ', e);
+    }
   }, []);
 
-  // Send Img //
+  /// Send Img ///
   const pickImage = async (onSend) => {
     //---- ASK for permissions ----//
     // const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -63,7 +114,7 @@ export default function ChatView({ navigation: { goBack }, route }) {
     }
   };
 
-  // Gifted Chat Styles //
+  /// Gifted Chat Styles ///
   const renderInputToolbar = (props) => {
     return (
       <InputToolbar
@@ -158,10 +209,12 @@ export default function ChatView({ navigation: { goBack }, route }) {
         renderInputToolbar={renderInputToolbar}
         scrollToBottom
         scrollToBottomComponent={scrollToBottomComponent}
+        showAvatarForEveryMessage={true}
         // renderActions={() => renderActions()}
         user={{
-          _id: 1,
-          avatar: require('../assets/rick.jpeg'),
+          _id: user?.email,
+          name: user?.displayName,
+          avatar: { uri: user?.photoURL },
         }}
       />
     </View>
