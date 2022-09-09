@@ -1,7 +1,6 @@
 import React, {
   useState,
   useCallback,
-  useEffect,
   useContext,
   useLayoutEffect,
 } from 'react';
@@ -30,8 +29,8 @@ import {
   onSnapshot,
   orderBy,
   getDocs,
+  query,
 } from 'firebase/firestore';
-import { async } from '@firebase/util';
 
 export default function ChatView({ navigation: { goBack }, route }) {
   const colorScheme = useColorScheme();
@@ -39,58 +38,40 @@ export default function ChatView({ navigation: { goBack }, route }) {
   const { userName, userImg, id, message } = route.params;
   const { user } = useContext(AuthContext);
 
-  // useEffect(() => {
-  //   setMessages([
-  //     {
-  //       _id: id,
-  //       text: message,
+  const userEmail = user.email;
 
-  //       createdAt: new Date(),
-  //       user: {
-  //         _id: 2,
-  //         name: userName,
-  //         avatar: userImg,
-  //       },
-  //     },
-  //   ]);
-  // }, []);
+  /// Get data From db ////
+  useLayoutEffect(() => {
+    const collectionRaf = collection(db, `chats/${userEmail}/${userName}`);
+    const q = query(collectionRaf, orderBy('createdAt', 'desc'));
 
-  // useLayoutEffect(async () => {
-  //   const unsubscribe = await getDocs(db, 'chats');
-  //   orderBy('createdAt', 'desc');
-  //   onSnapshot((snapshot) =>
-  //     setMessages(
-  //       snapshot.docs.map((doc) => ({
-  //         _id: doc.data()._id,
-  //         createdAt: doc.data().createdAt.toDate(),
-  //         text: doc.data().text,
-  //         user: doc.data().user,
-  //       }))
-  //     )
-  //   );
-  //   return unsubscribe;
-  // }, []);
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      setMessages(
+        snapshot.docs.map((doc) => ({
+          _id: doc.data()._id,
+          createdAt: doc.data().createdAt.toDate(),
+          text: doc.data().text,
+          user: doc.data().user,
+        }))
+      );
+    });
+    return () => unsubscribe;
+  }, []);
 
   /// Send Message ///
-
-  const userEmail = user.email;
   const onSend = useCallback((messages = []) => {
     setMessages((previousMessages) =>
       GiftedChat.append(previousMessages, messages)
     );
 
+    // storing to firebase db //
     const { _id, createdAt, text, user } = messages[0];
-    try {
-      // save to firebase db //
-      const docRef = addDoc(collection(db, `chats/${userEmail}/${userName}`), {
-        _id: _id,
-        createdAt: createdAt,
-        text: text,
-        user: user,
-      });
-    } catch (e) {
-      console.error('Error adding document: ', e);
-    }
+    addDoc(collection(db, `chats/${userEmail}/${userName}`), {
+      _id,
+      createdAt,
+      text,
+      user,
+    });
   }, []);
 
   /// Send Img ///
@@ -109,8 +90,7 @@ export default function ChatView({ navigation: { goBack }, route }) {
     });
 
     if (!result.cancelled) {
-      onSend([{ image: result.uri }]);
-      return result.uri;
+      onSend({ image: result.uri });
     }
   };
 
