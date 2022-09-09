@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 import { BlurView } from 'expo-blur';
 import { StyleSheet, Image } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -20,6 +20,9 @@ import Community from './community-screens/Community';
 
 // Theme //
 import { useColorScheme } from 'react-native';
+
+// Auth //
+import { AuthContext } from './Auth-screens/AuthContextProvider';
 
 /// Chat Screens ////
 const ChatStackScreen = () => {
@@ -54,6 +57,7 @@ const getRouteName = (route) => {
 ///  Main Control ///
 export default function MainControls() {
   const colorScheme = useColorScheme();
+  const { user } = useContext(AuthContext);
 
   return (
     <Tab.Navigator
@@ -130,13 +134,10 @@ export default function MainControls() {
           headerShown: false,
           tabBarIcon: ({ focused }) =>
             !focused ? (
-              <Image
-                source={require('./assets/rick.jpeg')}
-                style={styles.tabBarImg}
-              />
+              <Image source={{ uri: user.photoURL }} style={styles.tabBarImg} />
             ) : (
               <Image
-                source={require('./assets/rick.jpeg')}
+                source={{ uri: user.photoURL }}
                 style={styles.tabBarImgActive}
               />
             ),

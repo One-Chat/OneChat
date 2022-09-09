@@ -31,9 +31,12 @@ export default function SignupScreen({ navigation }) {
       <View style={styles.mainContainer}>
         <SafeAreaView style={styles.introContainer}>
           <Text
-            style={
-              colorScheme === 'dark' ? styles.titleDark : styles.titleLight
-            }
+            style={[
+              styles.titleStyle,
+              {
+                color: colorScheme === 'dark' ? 'white' : 'black',
+              },
+            ]}
           >
             Create Account
           </Text>
@@ -79,7 +82,7 @@ export default function SignupScreen({ navigation }) {
               height: 50,
               justifyContent: 'center',
             }}
-            onPress={() => signUp(email, password)}
+            onPress={() => signUp(email, password, name)}
           >
             Sign Up
           </Button>
@@ -105,7 +108,7 @@ export default function SignupScreen({ navigation }) {
             <Button>
               <Ionicons name='facebook' size={50} color='#4267B2' />
             </Button>
-            <Button>
+            <Button onPress={{}}>
               <Ionicons name='google' size={50} color='#DB4437' />
             </Button>
           </View>
@@ -153,15 +156,9 @@ const styles = StyleSheet.create({
     marginTop: 30,
     width: '70%',
   },
-  titleLight: {
+  titleStyle: {
     fontSize: 40,
     fontFamily: 'fira-sans-regular',
     padding: 20,
-  },
-  titleDark: {
-    fontSize: 40,
-    fontFamily: 'fira-sans-regular',
-    padding: 20,
-    color: 'white',
   },
 });

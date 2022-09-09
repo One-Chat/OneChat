@@ -23,11 +23,10 @@ export default function MainMessageView({ navigation }) {
     <View style={styles.mainContainer}>
       <SafeAreaView style={styles.titleContainer}>
         <Text
-          style={
-            colorScheme === 'dark'
-              ? styles.titleStyleDark
-              : styles.titleStyleLight
-          }
+          style={[
+            styles.titleStyle,
+            { color: colorScheme === 'dark' ? 'white' : 'black' },
+          ]}
         >
           Messages
         </Text>
@@ -54,11 +53,12 @@ export default function MainMessageView({ navigation }) {
         style={{ flex: 1 }}
       >
         <View
-          style={
-            colorScheme === 'dark'
-              ? styles.searchSectionDark
-              : styles.searchSectionLight
-          }
+          style={[
+            styles.searchSection,
+            {
+              backgroundColor: colorScheme === 'dark' ? '#121212' : 'lightgray',
+            },
+          ]}
         >
           <Ionicons
             name='search-outline'
@@ -70,11 +70,10 @@ export default function MainMessageView({ navigation }) {
             placeholder='Search'
             onChangeText={onChangeText}
             value={text}
-            style={
-              colorScheme === 'dark'
-                ? styles.textInputDark
-                : styles.textInputLight
-            }
+            style={[
+              styles.textInput,
+              { color: colorScheme === 'dark' ? 'white' : 'black' },
+            ]}
           />
         </View>
 
@@ -108,41 +107,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  titleStyleLight: {
+  titleStyle: {
     fontSize: 35,
     fontWeight: '600',
     paddingLeft: 22,
     fontFamily: 'fira-sans-regular',
   },
-  titleStyleDark: {
-    color: 'white',
-    fontSize: 35,
-    fontWeight: '600',
-    paddingLeft: 22,
-    fontFamily: 'fira-sans-regular',
-  },
-  textInputLight: {
+  textInput: {
     width: '80%',
     padding: 10,
     alignSelf: 'center',
   },
-  textInputDark: {
-    color: 'white',
-    width: '80%',
-    padding: 10,
-    alignSelf: 'center',
-  },
-  searchSectionLight: {
-    backgroundColor: 'lightgray',
-    flex: 0.7,
-    flexDirection: 'row',
-    alignSelf: 'center',
-    width: '90%',
-    borderRadius: 10,
-    margin: '5%',
-  },
-  searchSectionDark: {
-    backgroundColor: '#121212',
+  searchSection: {
     flex: 0.7,
     flexDirection: 'row',
     alignSelf: 'center',
