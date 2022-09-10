@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   View,
   Text,
@@ -29,18 +29,13 @@ import { auth } from '../../firebase';
 
 // storage //
 import { storage } from '../../firebase';
-import {
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-  uploadBytes,
-} from 'firebase/storage';
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 
 export default function Profile() {
   const colorScheme = useColorScheme();
   const { user } = useContext(AuthContext);
   const [status, setStatus] = useState('Edit Status...');
-  const [profileImg, setProfileImg] = useState(auth.currentUser.photoURL);
+  const [profileImg, setProfileImg] = useState({ uri: user.photoURL });
 
   // Img Picker //
   const pickImage = async () => {
@@ -87,7 +82,6 @@ export default function Profile() {
         () => {
           //  download img URL from firebase storage
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            console.log('File available at', downloadURL);
             updateProfile(auth.currentUser, { photoURL: downloadURL });
             setProfileImg({ uri: downloadURL });
           });
