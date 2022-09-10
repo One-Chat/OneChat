@@ -75,7 +75,7 @@ export default function ChatView({ navigation: { goBack }, route }) {
   }, []);
 
   /// Send Img ///
-  const pickImage = async (onSend) => {
+  const pickImage = async () => {
     //---- ASK for permissions ----//
     // const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     // const hasStoragePermissionGranted = status === 'granted';

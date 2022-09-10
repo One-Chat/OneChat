@@ -15,9 +15,29 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 // Theme //
 import { useColorScheme } from 'react-native';
 
+// db //
+import { collection, query, where, getDocs } from 'firebase/firestore';
+import { db } from '../../firebase';
+
 export default function MainMessageView({ navigation }) {
   const colorScheme = useColorScheme();
-  const [text, onChangeText] = useState('');
+  const [textInput, onChangeTextInput] = useState('');
+  const [user, setUser] = useState(null);
+
+  // Search users //
+  const handleSubmit = async () => {
+    const userRef = collection(db, 'users');
+    const q = query(userRef, where('displayName', '==', textInput));
+
+    try {
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        setUser(doc.data());
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <View style={styles.mainContainer}>
@@ -68,14 +88,21 @@ export default function MainMessageView({ navigation }) {
           />
           <TextInput
             placeholder='Search'
-            onChangeText={onChangeText}
-            value={text}
+            onChangeText={onChangeTextInput}
+            onSubmitEditing={handleSubmit}
+            value={textInput}
             style={[
               styles.textInput,
               { color: colorScheme === 'dark' ? 'white' : 'black' },
             ]}
           />
         </View>
+
+        {user && (
+          <View>
+            <Text>{user.displayName}</Text>
+          </View>
+        )}
 
         {/* Pinned Friends */}
 

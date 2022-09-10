@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useDeferredValue, useState } from 'react';
 
 // Auth //
 import { auth } from '../../firebase';
@@ -8,6 +8,10 @@ import {
   signOut,
   updateProfile,
 } from 'firebase/auth';
+
+// db //
+import { db } from '../../firebase';
+import { setDoc, doc } from 'firebase/firestore';
 
 export const AuthContext = createContext();
 
@@ -37,13 +41,18 @@ export const AuthProvider = ({ children }) => {
             .then((userCredential) => {
               // Signed in
               const user = userCredential.user;
-              // update user info
+              // update user info &  storing to db
+              setDoc(doc(db, 'users', user.uid), {
+                displayName: name,
+                Email: email,
+                uid: user.uid,
+              });
+              setDoc(doc(db, 'userChats', user.uid), {});
               updateProfile(auth.currentUser, {
                 displayName: name,
               })
                 .then(() => {
-                  // Profile updated!
-                  console.log(user.displayName);
+                  console.log(user.email);
                 })
                 .catch((error) => {
                   const errorMessage = error.message;
