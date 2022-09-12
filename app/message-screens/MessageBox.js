@@ -41,7 +41,6 @@ export default function MessageBox({ navigation }) {
                 userName: item.userName,
                 userImg: item.userImg,
                 id: item.id,
-                message: item.message,
               });
             }}
           >

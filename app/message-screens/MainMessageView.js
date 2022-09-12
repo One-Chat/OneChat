@@ -18,7 +18,7 @@ import { useColorScheme } from 'react-native';
 
 // db //
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import { db } from '../../firebase';
+import { auth, db } from '../../firebase';
 
 // Auth //
 import { AuthContext } from '../Auth-screens/AuthContextProvider';
@@ -27,16 +27,27 @@ export default function MainMessageView({ navigation }) {
   const colorScheme = useColorScheme();
   const [textInput, onChangeTextInput] = useState('');
   const [user, setUser] = useState(null);
+  const [err, setErr] = useState(false);
 
   // Search users //
   const handleSubmit = async () => {
     const userRef = collection(db, 'users');
     const q = query(userRef, where('Email', '==', textInput));
 
+    if (textInput !== q || user.Email === auth.currentUser.email) {
+      setUser(null), setErr(true);
+    }
+
+    if (textInput === '') {
+      setUser(null), setErr(false);
+    }
+
     try {
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
+        setErr(false);
         setUser(doc.data());
+        onChangeTextInput('');
       });
     } catch (error) {
       console.log(error);
@@ -102,21 +113,54 @@ export default function MainMessageView({ navigation }) {
           />
         </View>
 
-        {user && (
-          <View style={styles.searchResult}>
-            <Image source={user} style={styles.searchUserImg} />
-            <Text>{user.displayName}</Text>
-          </View>
+        {err && (
+          <Text
+            style={{
+              left: 15,
+              fontFamily: 'fira-sans-regular',
+              fontSize: 20,
+              margin: '5%',
+              color: '#FA9494',
+            }}
+          >
+            🥲 No User Found ! Try Another Email.
+          </Text>
         )}
 
+        {user && (
+          <TouchableOpacity
+            style={styles.searchResult}
+            onPress={() => {
+              navigation.navigate('ChatView', {
+                userName: user.displayName,
+                userImg: { uri: user.photoURL },
+                userId: user.uid,
+              });
+            }}
+          >
+            <Image
+              style={{
+                width: 50,
+                height: 50,
+                borderRadius: 30,
+              }}
+              source={{
+                uri: user.photoURL,
+              }}
+            />
+            <Text
+              style={{ left: 15, fontFamily: 'fira-sans-bold', fontSize: 20 }}
+            >
+              {user.displayName}
+            </Text>
+          </TouchableOpacity>
+        )}
         {/* Pinned Friends */}
-
         <View style={styles.friendContainer}>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             <PinnedFriends />
           </ScrollView>
         </View>
-
         {/* Chats */}
         <View style={styles.chatContainer}>
           <MessageBox navigation={navigation} />
@@ -167,6 +211,11 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   searchResult: {
-    width: '80%',
+    backgroundColor: 'lightgray',
+    borderRadius: 30,
+    padding: '5%',
+    alignItems: 'center',
+    flexDirection: 'row',
+    margin: '5%',
   },
 });

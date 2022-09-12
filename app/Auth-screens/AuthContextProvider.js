@@ -11,7 +11,7 @@ import {
 
 // db //
 import { db } from '../../firebase';
-import { setDoc, doc } from 'firebase/firestore';
+import { setDoc, doc, Timestamp, updateDoc } from 'firebase/firestore';
 
 export const AuthContext = createContext();
 
@@ -29,6 +29,9 @@ export const AuthProvider = ({ children }) => {
             .then((userCredential) => {
               // Signed in
               const user = userCredential.user;
+              updateDoc(doc(db, 'users', user.uid), {
+                isOnline: true,
+              });
             })
             .catch((error) => {
               const errorMessage = error.message;
@@ -47,8 +50,9 @@ export const AuthProvider = ({ children }) => {
                 Email: email,
                 uid: user.uid,
                 photoURL: '',
+                createdAt: Timestamp.fromDate(new Date()),
+                isOnline: true,
               });
-              setDoc(doc(db, 'userChats', user.uid), {});
               updateProfile(auth.currentUser, {
                 displayName: name,
               })
@@ -69,7 +73,9 @@ export const AuthProvider = ({ children }) => {
         signOut: () => {
           signOut(auth)
             .then(() => {
-              // Sign-out successful.
+              updateDoc(doc(db, 'users', user.uid), {
+                isOnline: false,
+              });
             })
             .catch((e) => {
               console.log(e);

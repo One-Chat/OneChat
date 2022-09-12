@@ -30,7 +30,7 @@ import { auth } from '../../firebase';
 // storage //
 import { storage, db } from '../../firebase';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { setDoc, doc } from 'firebase/firestore';
+import { setDoc, doc, updateDoc } from 'firebase/firestore';
 
 export default function Profile() {
   const colorScheme = useColorScheme();
@@ -84,13 +84,9 @@ export default function Profile() {
           await getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             updateProfile(auth.currentUser, { photoURL: downloadURL });
             setProfileImg({ uri: downloadURL });
-            setDoc(
-              doc(db, 'users', user.uid),
-              {
-                photoURL: downloadURL,
-              },
-              { merge: true }
-            );
+            updateDoc(doc(db, 'users', user.uid), {
+              photoURL: downloadURL,
+            });
           });
         }
       );
