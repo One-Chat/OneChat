@@ -1,4 +1,4 @@
-import React, { createContext, useDeferredValue, useState } from 'react';
+import React, { createContext, useState } from 'react';
 
 // Auth //
 import { auth } from '../../firebase';
@@ -46,6 +46,7 @@ export const AuthProvider = ({ children }) => {
                 displayName: name,
                 Email: email,
                 uid: user.uid,
+                photoURL: '',
               });
               setDoc(doc(db, 'userChats', user.uid), {});
               updateProfile(auth.currentUser, {

@@ -28,8 +28,9 @@ import { updateProfile } from 'firebase/auth';
 import { auth } from '../../firebase';
 
 // storage //
-import { storage } from '../../firebase';
+import { storage, db } from '../../firebase';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { setDoc, doc } from 'firebase/firestore';
 
 export default function Profile() {
   const colorScheme = useColorScheme();
@@ -45,7 +46,6 @@ export default function Profile() {
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4, 3],
-      quality: 1,
     });
 
     if (!result.cancelled) {
@@ -79,11 +79,18 @@ export default function Profile() {
           this.setState({ isLoading: false });
           console.log(error);
         },
-        () => {
+        async () => {
           //  download img URL from firebase storage
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          await getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             updateProfile(auth.currentUser, { photoURL: downloadURL });
             setProfileImg({ uri: downloadURL });
+            setDoc(
+              doc(db, 'users', user.uid),
+              {
+                photoURL: downloadURL,
+              },
+              { merge: true }
+            );
           });
         }
       );

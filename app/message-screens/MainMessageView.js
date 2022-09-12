@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   View,
   Text,
@@ -7,6 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
+  Image,
 } from 'react-native';
 import MessageBox from './MessageBox';
 import PinnedFriends from './PinnedFriends';
@@ -19,6 +20,9 @@ import { useColorScheme } from 'react-native';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase';
 
+// Auth //
+import { AuthContext } from '../Auth-screens/AuthContextProvider';
+
 export default function MainMessageView({ navigation }) {
   const colorScheme = useColorScheme();
   const [textInput, onChangeTextInput] = useState('');
@@ -27,7 +31,7 @@ export default function MainMessageView({ navigation }) {
   // Search users //
   const handleSubmit = async () => {
     const userRef = collection(db, 'users');
-    const q = query(userRef, where('displayName', '==', textInput));
+    const q = query(userRef, where('Email', '==', textInput));
 
     try {
       const querySnapshot = await getDocs(q);
@@ -87,7 +91,7 @@ export default function MainMessageView({ navigation }) {
             color='gray'
           />
           <TextInput
-            placeholder='Search'
+            placeholder='Search users with email'
             onChangeText={onChangeTextInput}
             onSubmitEditing={handleSubmit}
             value={textInput}
@@ -99,7 +103,8 @@ export default function MainMessageView({ navigation }) {
         </View>
 
         {user && (
-          <View>
+          <View style={styles.searchResult}>
+            <Image source={user} style={styles.searchUserImg} />
             <Text>{user.displayName}</Text>
           </View>
         )}
@@ -160,5 +165,8 @@ const styles = StyleSheet.create({
   chatContainer: {
     flex: 10,
     marginBottom: 30,
+  },
+  searchResult: {
+    width: '80%',
   },
 });
