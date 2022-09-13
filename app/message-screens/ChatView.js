@@ -1,9 +1,4 @@
-import React, {
-  useState,
-  useCallback,
-  useContext,
-  useLayoutEffect,
-} from 'react';
+import React, { useState, useCallback, useLayoutEffect } from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import Ionicons from 'react-native-vector-icons/FontAwesome';
 import * as ImagePicker from 'expo-image-picker';
@@ -21,7 +16,6 @@ import ChatViewHeader from './ChatViewHeader';
 import { useColorScheme } from 'react-native';
 
 // Auth //
-import { AuthContext } from '../Auth-screens/AuthContextProvider';
 import { auth, db } from '../../firebase';
 import {
   collection,
@@ -35,14 +29,18 @@ import {
 export default function ChatView({ navigation: { goBack }, route }) {
   const colorScheme = useColorScheme();
   const [messages, setMessages] = useState([]);
-  const { userName, userImg, id, message } = route.params;
-  const { user } = useContext(AuthContext);
+  const { userName, userImg, userId } = route.params;
 
-  const userEmail = user.email;
+  const currentUser = auth.currentUser;
+
+  const combinedID =
+    currentUser.uid > userId
+      ? currentUser.uid + userId
+      : userId + currentUser.uid;
 
   /// Get data From db ////
   useLayoutEffect(() => {
-    const collectionRaf = collection(db, `chats/${userEmail}/${userName}`);
+    const collectionRaf = collection(db, `chats/history/${combinedID}`);
     const q = query(collectionRaf, orderBy('createdAt', 'desc'));
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -63,19 +61,18 @@ export default function ChatView({ navigation: { goBack }, route }) {
     setMessages((previousMessages) =>
       GiftedChat.append(previousMessages, messages)
     );
-
     // storing to firebase db //
     const { _id, createdAt, text, user } = messages[0];
-    addDoc(collection(db, `chats/${userEmail}/${userName}`), {
-      _id,
-      createdAt,
-      text,
-      user,
+    addDoc(collection(db, `chats/history/${combinedID}`), {
+      _id: _id,
+      createdAt: createdAt,
+      text: text,
+      user: user,
     });
   }, []);
 
   /// Send Img ///
-  const pickImage = async (onSend) => {
+  const pickImage = async () => {
     //---- ASK for permissions ----//
     // const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     // const hasStoragePermissionGranted = status === 'granted';
@@ -192,9 +189,9 @@ export default function ChatView({ navigation: { goBack }, route }) {
         showAvatarForEveryMessage={true}
         // renderActions={() => renderActions()}
         user={{
-          _id: user?.email,
-          name: user?.displayName,
-          avatar: { uri: user?.photoURL },
+          _id: currentUser.uid,
+          name: currentUser.displayName,
+          avatar: { uri: currentUser.photoURL },
         }}
       />
     </View>

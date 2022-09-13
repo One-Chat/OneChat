@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   View,
   Text,
@@ -28,33 +28,68 @@ import { updateProfile } from 'firebase/auth';
 import { auth } from '../../firebase';
 
 // storage //
-import { storage } from '../../firebase';
-import { ref, uploadBytesResumable } from 'firebase/storage';
+import { storage, db } from '../../firebase';
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { doc, updateDoc } from 'firebase/firestore';
 
 export default function Profile() {
   const colorScheme = useColorScheme();
   const { user } = useContext(AuthContext);
-  const [profileImg, setProfileImg] = useState(user.photoURL);
   const [status, setStatus] = useState('Edit Status...');
+  const [profileImg, setProfileImg] = useState({ uri: user.photoURL });
 
   // Img Picker //
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
+
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4, 3],
-      quality: 1,
     });
 
     if (!result.cancelled) {
       // Save to firebase storage //
       const fileName = result.uri.split('/').pop();
-      const storageRef = ref(storage, `users/${user.email}/img/${fileName}`);
-      // uploadBytesResumable(storageRef, result);
+      const storageRef = ref(
+        storage,
+        `users/${user.email}/profileImg/${fileName}`
+      );
+      const img = await fetch(result.uri);
+      const blob = await img.blob();
+      const uploadTask = uploadBytesResumable(storageRef, blob);
 
-      setProfileImg(result.uri);
-      updateProfile(auth.currentUser, { photoURL: result.uri });
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          // Get task progress
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('Upload is ' + progress + '% done');
+          switch (snapshot.state) {
+            case 'paused':
+              console.log('Upload is paused');
+              break;
+            case 'running':
+              console.log('Upload is running');
+              break;
+          }
+        },
+        (error) => {
+          this.setState({ isLoading: false });
+          console.log(error);
+        },
+        async () => {
+          //  download img URL from firebase storage
+          await getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            updateProfile(auth.currentUser, { photoURL: downloadURL });
+            setProfileImg({ uri: downloadURL });
+            updateDoc(doc(db, 'users', user.uid), {
+              photoURL: downloadURL,
+            });
+          });
+        }
+      );
     }
   };
 
@@ -89,7 +124,7 @@ export default function Profile() {
 
       <View style={styles.imgContainer}>
         <TouchableOpacity style={styles.imgBtn} onPress={pickImage}>
-          <Image source={{ uri: profileImg }} style={styles.profileImg} />
+          <Image source={profileImg} style={styles.profileImg} />
         </TouchableOpacity>
       </View>
 
