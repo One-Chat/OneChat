@@ -30,7 +30,7 @@ import { auth } from '../../firebase';
 // storage //
 import { storage, db } from '../../firebase';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { setDoc, doc, updateDoc } from 'firebase/firestore';
+import { doc, updateDoc } from 'firebase/firestore';
 
 export default function Profile() {
   const colorScheme = useColorScheme();
