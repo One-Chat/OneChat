@@ -27,10 +27,12 @@ export default function Settings() {
           Settings
         </Text>
       </SafeAreaView>
-      <View>
+      <View
+        style={{ flex: 0.8, alignItems: 'center', justifyContent: 'center' }}
+      >
         <Button
           mode='outlined'
-          style={{ width: 100, alignSelf: 'center' }}
+          style={{ width: 150, alignSelf: 'center', borderRadius: 10 }}
           onPress={signOut}
         >
           {' '}

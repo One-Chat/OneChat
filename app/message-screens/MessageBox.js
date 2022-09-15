@@ -14,29 +14,10 @@ import { useColorScheme } from 'react-native';
 
 // Navigation //
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-
 const Tab = createMaterialTopTabNavigator();
 
-// db //
-import { db, auth } from '../../firebase';
-import { collection, getDocs, query, where } from 'firebase/firestore';
-
-export default function MessageBox({ navigation }) {
+export default function MessageBox({ navigation, filteredFriend }) {
   const colorScheme = useColorScheme();
-  const currentUser = auth.currentUser;
-  const [friends, setFriends] = useState([]);
-
-  useEffect(() => {
-    const fetchFriends = async () => {
-      const usersRef = collection(db, 'users');
-      const q = query(usersRef, where('Email', '!=', currentUser.email));
-      const querySnapshot = await getDocs(q);
-      setFriends(
-        querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-      );
-    };
-    fetchFriends();
-  }, []);
 
   return (
     <View
@@ -47,7 +28,7 @@ export default function MessageBox({ navigation }) {
     >
       <FlatList
         showsVerticalScrollIndicator={false}
-        data={friends}
+        data={filteredFriend}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <TouchableOpacity
@@ -87,7 +68,8 @@ export default function MessageBox({ navigation }) {
               >
                 {item.displayName}
               </Text>
-              {/* <Text style={styles.messageStyle}> {item.message} </Text> */}
+
+              <Text style={styles.timeStyle}>{item.status}</Text>
             </View>
             <View style={styles.timeContainer}>
               <Text style={styles.timeStyle}>

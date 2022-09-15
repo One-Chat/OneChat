@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -7,7 +7,6 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
-  Image,
 } from 'react-native';
 import MessageBox from './MessageBox';
 import PinnedFriends from './PinnedFriends';
@@ -20,39 +19,34 @@ import { useColorScheme } from 'react-native';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { auth, db } from '../../firebase';
 
-// Auth //
-import { AuthContext } from '../Auth-screens/AuthContextProvider';
-
 export default function MainMessageView({ navigation }) {
   const colorScheme = useColorScheme();
   const [textInput, onChangeTextInput] = useState('');
-  const [user, setUser] = useState(null);
-  const [err, setErr] = useState(false);
+  const [friends, setFriends] = useState([]);
+  const [filteredFriend, setFilteredFriend] = useState(friends);
+
+  const currentUser = auth.currentUser;
+
+  // Fetch users from db //
+  useEffect(() => {
+    const fetchFriends = async () => {
+      const usersRef = collection(db, 'users');
+      const q = query(usersRef, where('Email', '!=', currentUser.email));
+      const querySnapshot = await getDocs(q);
+      setFriends(
+        querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+      );
+    };
+    fetchFriends();
+  }, []);
 
   // Search users //
-  const handleSubmit = async () => {
-    const userRef = collection(db, 'users');
-    const q = query(userRef, where('Email', '==', textInput));
-
-    if (textInput !== q || user.Email === auth.currentUser.email) {
-      setUser(null), setErr(true);
-    }
-
-    if (textInput === '') {
-      setUser(null), setErr(false);
-    }
-
-    try {
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        setErr(false);
-        setUser(doc.data());
-        onChangeTextInput('');
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  useEffect(() => {
+    const newContacts = friends.filter((contact) =>
+      contact.displayName.toLowerCase().includes(textInput.toLocaleLowerCase())
+    );
+    setFilteredFriend(newContacts);
+  }, [textInput]);
 
   return (
     <View style={styles.mainContainer}>
@@ -104,7 +98,7 @@ export default function MainMessageView({ navigation }) {
           <TextInput
             placeholder='Search users with email'
             onChangeText={onChangeTextInput}
-            onSubmitEditing={handleSubmit}
+            // onSubmitEditing={handleSubmit}
             value={textInput}
             style={[
               styles.textInput,
@@ -112,50 +106,6 @@ export default function MainMessageView({ navigation }) {
             ]}
           />
         </View>
-
-        {err && (
-          <Text
-            style={{
-              left: 15,
-              fontFamily: 'fira-sans-regular',
-              fontSize: 20,
-              margin: '5%',
-              color: '#FA9494',
-            }}
-          >
-            🥲 No User Found ! Try Another Email.
-          </Text>
-        )}
-
-        {user && (
-          <TouchableOpacity
-            style={styles.searchResult}
-            onPress={() => {
-              navigation.navigate('ChatView', {
-                status: user.isOnline,
-                userName: user.displayName,
-                userImg: { uri: user.photoURL },
-                userId: user.uid,
-              });
-            }}
-          >
-            <Image
-              style={{
-                width: 50,
-                height: 50,
-                borderRadius: 30,
-              }}
-              source={{
-                uri: user.photoURL,
-              }}
-            />
-            <Text
-              style={{ left: 15, fontFamily: 'fira-sans-bold', fontSize: 20 }}
-            >
-              {user.displayName}
-            </Text>
-          </TouchableOpacity>
-        )}
         {/* Pinned Friends */}
         <View style={styles.friendContainer}>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
@@ -164,7 +114,7 @@ export default function MainMessageView({ navigation }) {
         </View>
         {/* Chats */}
         <View style={styles.chatContainer}>
-          <MessageBox navigation={navigation} />
+          <MessageBox navigation={navigation} filteredFriend={filteredFriend} />
         </View>
       </View>
     </View>
