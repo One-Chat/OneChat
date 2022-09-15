@@ -13,7 +13,7 @@ import { useColorScheme } from 'react-native';
 
 export default function ChatViewHeader({ goBack, route }) {
   const colorScheme = useColorScheme();
-  const { userName, userImg } = route.params;
+  const { userName, userImg, status } = route.params;
 
   return (
     <View style={styles.mainContainer}>
@@ -40,8 +40,12 @@ export default function ChatViewHeader({ goBack, route }) {
             {userName}
           </Text>
           <View style={styles.statusContainer}>
-            <Ionicons name='ellipse' size={8} color='green' />
-            <Text style={styles.status}>Online </Text>
+            <Ionicons
+              name='ellipse'
+              size={8}
+              color={status ? 'green' : 'gray'}
+            />
+            <Text style={styles.status}> {status ? 'Online' : 'Offline'} </Text>
           </View>
         </View>
         <TouchableWithoutFeedback onPress={goBack}>

@@ -132,6 +132,7 @@ export default function MainMessageView({ navigation }) {
             style={styles.searchResult}
             onPress={() => {
               navigation.navigate('ChatView', {
+                status: user.isOnline,
                 userName: user.displayName,
                 userImg: { uri: user.photoURL },
                 userId: user.uid,
