@@ -96,9 +96,8 @@ export default function MainMessageView({ navigation }) {
             color='gray'
           />
           <TextInput
-            placeholder='Search users with email'
+            placeholder='Search'
             onChangeText={onChangeTextInput}
-            // onSubmitEditing={handleSubmit}
             value={textInput}
             style={[
               styles.textInput,

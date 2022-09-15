@@ -4,7 +4,7 @@ import {
   Text,
   Image,
   StyleSheet,
-  TouchableWithoutFeedback,
+  TouchableOpacity,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -48,14 +48,13 @@ export default function ChatViewHeader({ goBack, route }) {
             <Text style={styles.status}> {status ? 'Online' : 'Offline'} </Text>
           </View>
         </View>
-        <TouchableWithoutFeedback onPress={goBack}>
+        <TouchableOpacity onPress={goBack} style={styles.closeIcon}>
           <Ionicons
             name='close'
             size={30}
             color={colorScheme === 'dark' ? 'white' : 'black'}
-            style={styles.closeIcon}
           />
-        </TouchableWithoutFeedback>
+        </TouchableOpacity>
       </SafeAreaView>
     </View>
   );
@@ -66,6 +65,7 @@ export default function ChatViewHeader({ goBack, route }) {
 const styles = StyleSheet.create({
   mainContainer: {
     justifyContent: 'center',
+    position: 'relative',
   },
   userContainer: {
     alignItems: 'center',
@@ -98,12 +98,11 @@ const styles = StyleSheet.create({
   },
   infoContainer: {
     flexDirection: 'column',
-    justifyContent: 'space-evenly',
     left: 20,
   },
   closeIcon: {
     position: 'absolute',
     right: 0,
-    top: 65,
+    bottom: 30,
   },
 });
