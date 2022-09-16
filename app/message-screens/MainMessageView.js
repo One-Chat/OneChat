@@ -23,7 +23,7 @@ export default function MainMessageView({ navigation }) {
   const colorScheme = useColorScheme();
   const [textInput, onChangeTextInput] = useState('');
   const [friends, setFriends] = useState([]);
-  const [filteredFriend, setFilteredFriend] = useState(friends);
+  const [filteredFriend, setFilteredFriend] = useState([]);
 
   const currentUser = auth.currentUser;
 
@@ -34,6 +34,9 @@ export default function MainMessageView({ navigation }) {
       const q = query(usersRef, where('Email', '!=', currentUser.email));
       const querySnapshot = await getDocs(q);
       setFriends(
+        querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+      );
+      setFilteredFriend(
         querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
       );
     };
