@@ -21,6 +21,13 @@ export default function Community() {
           Community
         </Text>
       </SafeAreaView>
+      <View
+        style={{ flex: 0.8, alignItems: 'center', justifyContent: 'center' }}
+      >
+        <Text style={{ fontFamily: 'fira-sans-bold' }}>
+          Coming Soon ... 🤔{' '}
+        </Text>
+      </View>
     </View>
   );
 }

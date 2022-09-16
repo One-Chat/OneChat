@@ -4,8 +4,9 @@ import {
   StyleSheet,
   Text,
   SafeAreaView,
-  TouchableWithoutFeedback,
   Keyboard,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/FontAwesome';
@@ -66,7 +67,7 @@ export default function LoginScreen({ navigation }) {
             value={password}
             onChangeText={(text) => setPassword(text)}
           />
-          <TouchableWithoutFeedback>
+          <TouchableOpacity>
             <Text
               style={{
                 color: 'gray',
@@ -77,7 +78,7 @@ export default function LoginScreen({ navigation }) {
             >
               Forgot Password?
             </Text>
-          </TouchableWithoutFeedback>
+          </TouchableOpacity>
         </View>
         <View style={styles.buttomContainer}>
           <Button
@@ -122,7 +123,7 @@ export default function LoginScreen({ navigation }) {
           <Text style={{ color: 'gray', fontFamily: 'fira-sans-light' }}>
             Not a member?
           </Text>
-          <TouchableWithoutFeedback
+          <TouchableOpacity
             onPress={() => {
               navigation.navigate('Signup');
             }}
@@ -136,7 +137,7 @@ export default function LoginScreen({ navigation }) {
             >
               Join Now
             </Text>
-          </TouchableWithoutFeedback>
+          </TouchableOpacity>
         </View>
       </View>
     </TouchableWithoutFeedback>

@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   TouchableWithoutFeedback,
   Keyboard,
+  TouchableOpacity,
 } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/FontAwesome';
@@ -117,7 +118,7 @@ export default function SignupScreen({ navigation }) {
           <Text style={{ color: 'gray', fontFamily: 'fira-sans-light' }}>
             Already have an account?
           </Text>
-          <TouchableWithoutFeedback
+          <TouchableOpacity
             onPress={() => {
               navigation.navigate('Login');
             }}
@@ -131,7 +132,7 @@ export default function SignupScreen({ navigation }) {
             >
               Log in
             </Text>
-          </TouchableWithoutFeedback>
+          </TouchableOpacity>
         </View>
       </View>
     </TouchableWithoutFeedback>

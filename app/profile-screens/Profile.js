@@ -35,7 +35,7 @@ import { doc, updateDoc } from 'firebase/firestore';
 export default function Profile() {
   const colorScheme = useColorScheme();
   const { user } = useContext(AuthContext);
-  const [status, setStatus] = useState('Edit Status...');
+  const [status, setStatus] = useState('Edit status...');
   const [profileImg, setProfileImg] = useState({ uri: user.photoURL });
 
   // Img Picker //
@@ -142,6 +142,9 @@ export default function Profile() {
       <TouchableWithoutFeedback
         onPress={() => {
           Alert.prompt('Status', 'What are you thinking 💭 ', (newStatus) => {
+            updateDoc(doc(db, 'users', user.uid), {
+              status: newStatus,
+            });
             setStatus(newStatus);
           });
         }}
@@ -205,12 +208,10 @@ const styles = StyleSheet.create({
     color: 'gray',
   },
   status: {
-    borderColor: 'black',
     marginTop: '5%',
     fontFamily: 'fira-sans-regular',
     alignSelf: 'center',
     padding: '2.5%',
-    borderWidth: 1,
     alignSelf: 'center',
     borderRadius: 10,
   },

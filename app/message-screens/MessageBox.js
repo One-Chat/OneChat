@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -14,13 +14,9 @@ import { useColorScheme } from 'react-native';
 
 // Navigation //
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-
 const Tab = createMaterialTopTabNavigator();
 
-// Users info //
-import { Users } from '../users';
-
-export default function MessageBox({ navigation }) {
+export default function MessageBox({ navigation, filteredFriend }) {
   const colorScheme = useColorScheme();
 
   return (
@@ -32,15 +28,18 @@ export default function MessageBox({ navigation }) {
     >
       <FlatList
         showsVerticalScrollIndicator={false}
-        data={Users}
+        data={filteredFriend}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() => {
               navigation.navigate('ChatView', {
-                userName: item.userName,
-                userImg: item.userImg,
-                id: item.id,
+                status: item.isOnline,
+                userName: item.displayName,
+                userImg: {
+                  uri: item.photoURL,
+                },
+                userId: item.uid,
               });
             }}
           >
@@ -53,7 +52,12 @@ export default function MessageBox({ navigation }) {
                 },
               ]}
             >
-              <Image source={item.userImg} style={styles.pictures} />
+              <Image
+                source={{
+                  uri: item.photoURL,
+                }}
+                style={styles.pictures}
+              />
             </View>
             <View style={styles.infoContainer}>
               <Text
@@ -62,13 +66,21 @@ export default function MessageBox({ navigation }) {
                   { color: colorScheme === 'dark' ? 'white' : 'black' },
                 ]}
               >
-                {item.userName}
+                {item.displayName}
               </Text>
-              <Text style={styles.messageStyle}> {item.message} </Text>
+
+              <Text style={styles.timeStyle}>{item.status}</Text>
             </View>
             <View style={styles.timeContainer}>
-              <Text style={styles.timeStyle}> {item.timestamp} </Text>
-              <Ionicons name='checkmark-done' size={20} color='green' />
+              <Text style={styles.timeStyle}>
+                {item.isOnline ? 'Online' : 'Offline'}
+              </Text>
+              <Ionicons
+                name='ellipse'
+                size={10}
+                color={item.isOnline ? 'green' : 'gray'}
+                style={{ padding: 5 }}
+              />
             </View>
           </TouchableOpacity>
         )}
@@ -106,11 +118,10 @@ const styles = StyleSheet.create({
   },
   infoContainer: {
     margin: '1.5%',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     position: 'absolute',
     left: '20%',
-    paddingTop: 15,
-    paddingBottom: 15,
+    paddingTop: 20,
   },
   messageStyle: {
     color: 'gray',
@@ -118,10 +129,10 @@ const styles = StyleSheet.create({
     marginLeft: -3,
   },
   timeContainer: {
+    flexDirection: 'row',
     margin: '1.5%',
-    justifyContent: 'space-between',
-    paddingTop: 15,
-    paddingBottom: 15,
+    justifyContent: 'center',
+    paddingTop: 20,
     position: 'absolute',
     alignSelf: 'flex-end',
     alignItems: 'center',
