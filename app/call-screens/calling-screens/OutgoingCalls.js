@@ -2,20 +2,15 @@ import { View, Text, StyleSheet, Image } from 'react-native';
 import React from 'react';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const OutgoingCalls = () => {
+export default function OutgoingCalls({ navigation: { goBack }, route }) {
+  const { userName, userImg, userId } = route.params;
+
   return (
     <View style={{ flex: 1 }}>
-      <Image
-        source={require('../../assets/mobu.png')}
-        style={styles.backgroundImg}
-        blurRadius={10}
-      />
+      <Image source={userImg} style={styles.backgroundImg} blurRadius={10} />
       <View style={styles.infoContainer}>
-        <Image
-          source={require('../../assets/mobu.png')}
-          style={styles.profileImg}
-        />
-        <Text style={styles.name}>Mobu</Text>
+        <Image source={userImg} style={styles.profileImg} />
+        <Text style={styles.name}>{userName}</Text>
         <Text style={styles.callInfo}>Calling ... </Text>
       </View>
 
@@ -34,7 +29,7 @@ const OutgoingCalls = () => {
           <Text style={styles.text}>Mute</Text>
         </View>
         <View style={styles.midIcon}>
-          <Icons name='phone-hangup' size={40} color='white' />
+          <Icons name='phone-hangup' size={40} color='white' onPress={goBack} />
         </View>
         <View>
           <View
@@ -52,9 +47,7 @@ const OutgoingCalls = () => {
       </View>
     </View>
   );
-};
-
-export default OutgoingCalls;
+}
 
 //// Styles ////
 const styles = StyleSheet.create({
