@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import {
   View,
   StyleSheet,
@@ -17,14 +17,27 @@ import { useColorScheme } from 'react-native';
 // Auth //
 import { AuthContext } from './AuthContextProvider';
 
+// Voximplant //
+import { Voximplant } from 'react-native-voximplant';
+
 export default function LoginScreen({ navigation }) {
   const colorScheme = useColorScheme();
+  const { logIn } = useContext(AuthContext);
 
   const [secureTextEntry, setSecureTextEntry] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { logIn } = useContext(AuthContext);
+  // Connect to the Voximplant client //
+  const voximplant = Voximplant.getInstance();
+  useEffect(() => {
+    const connect = async () => {
+      const status = await voximplant.getClientState();
+
+      console.log(status);
+    };
+    connect();
+  }, []);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

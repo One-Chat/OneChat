@@ -47,7 +47,7 @@ export default function Calls({ navigation }) {
         style={{ width: '100%', top: -20 }}
         screenOptions={{
           tabBarLabelStyle: {
-            fontSize: '18rem',
+            fontSize: 18,
             fontFamily: 'fira-sans-regular',
           },
           tabBarStyle: { backgroundColor: 'transparent' },

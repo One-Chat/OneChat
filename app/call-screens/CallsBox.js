@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     fontFamily: 'fira-sans-regular',
-    fontSize: '18rem',
+    fontSize: 18,
   },
   time: {
     flex: 1,

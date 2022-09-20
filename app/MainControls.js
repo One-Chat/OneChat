@@ -83,7 +83,7 @@ const getRouteName = (route) => {
   ) {
     return 'none';
   }
-  return 'absolute';
+  return 'flex';
 };
 
 ///  Main Control ///
