@@ -13,6 +13,9 @@ import {
 import { db } from '../../firebase';
 import { setDoc, doc, Timestamp, updateDoc } from 'firebase/firestore';
 
+// Voximplant //
+import { VoximplantApiClient } from 'react-native-voximplant';
+
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {

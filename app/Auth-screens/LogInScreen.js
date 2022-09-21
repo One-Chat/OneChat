@@ -33,7 +33,9 @@ export default function LoginScreen({ navigation }) {
   useEffect(() => {
     const connect = async () => {
       const status = await voximplant.getClientState();
-
+      if (status === Voximplant.ClientState.DISCONNECTED) {
+        await voximplant.connect();
+      }
       console.log(status);
     };
     connect();
@@ -114,7 +116,7 @@ export default function LoginScreen({ navigation }) {
               color: 'gray',
             }}
           >
-            ⎯⎯⎯⎯⎯⎯⎯ Or Log in with ⎯⎯⎯⎯⎯⎯⎯
+            ⎯⎯⎯⎯ Or Log in with ⎯⎯⎯⎯
           </Text>
           <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
             <Button>

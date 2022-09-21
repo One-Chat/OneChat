@@ -96,7 +96,7 @@ export default function SignupScreen({ navigation }) {
               color: 'gray',
             }}
           >
-            ⎯⎯⎯⎯⎯⎯ Or Sign up with ⎯⎯⎯⎯⎯⎯
+            ⎯⎯⎯ Or Sign up with ⎯⎯⎯
           </Text>
           <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
             <Button>
