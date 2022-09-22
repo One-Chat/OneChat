@@ -12,7 +12,7 @@ export default function SavedTabs() {
     <Tab.Navigator
       screenOptions={{
         tabBarLabelStyle: {
-          fontSize: 16,
+          fontSize: '16rem',
           fontFamily: 'fira-sans-regular',
         },
         tabBarStyle: { backgroundColor: 'transparent' },

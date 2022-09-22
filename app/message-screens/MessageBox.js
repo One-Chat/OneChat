@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   },
   textStyleLight: {
     fontFamily: 'fira-sans-regular',
-    fontSize: 18,
+    fontSize: '18rem',
   },
   infoContainer: {
     margin: '1.5%',

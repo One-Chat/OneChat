@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   },
   nameStyle: {
     fontFamily: 'fira-sans-regular',
-    fontSize: 23,
+    fontSize: '23rem',
   },
   statusContainer: {
     flexDirection: 'row',

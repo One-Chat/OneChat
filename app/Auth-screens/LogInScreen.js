@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import {
   View,
   StyleSheet,
@@ -17,29 +17,14 @@ import { useColorScheme } from 'react-native';
 // Auth //
 import { AuthContext } from './AuthContextProvider';
 
-// Voximplant //
-import { Voximplant } from 'react-native-voximplant';
-
 export default function LoginScreen({ navigation }) {
   const colorScheme = useColorScheme();
-  const { logIn } = useContext(AuthContext);
 
   const [secureTextEntry, setSecureTextEntry] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  // Connect to the Voximplant client //
-  const voximplant = Voximplant.getInstance();
-  useEffect(() => {
-    const connect = async () => {
-      const status = await voximplant.getClientState();
-      if (status === Voximplant.ClientState.DISCONNECTED) {
-        await voximplant.connect();
-      }
-      console.log(status);
-    };
-    connect();
-  }, []);
+  const { logIn } = useContext(AuthContext);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -116,7 +101,7 @@ export default function LoginScreen({ navigation }) {
               color: 'gray',
             }}
           >
-            ⎯⎯⎯⎯ Or Log in with ⎯⎯⎯⎯
+            ⎯⎯⎯ Or Log in with ⎯⎯⎯
           </Text>
           <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
             <Button>

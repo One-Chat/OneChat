@@ -139,7 +139,7 @@ export default function ChatView({ navigation: { goBack }, route }) {
               style={{
                 bottom: 15,
                 right: 10,
-                display: props.text === '' ? 'flex' : 'none',
+                display: props.text === '' ? 'absolute' : 'none',
               }}
             />
           </View>
@@ -153,7 +153,7 @@ export default function ChatView({ navigation: { goBack }, route }) {
               style={{
                 bottom: 15,
                 right: 10,
-                display: props.text === '' ? 'flex' : 'none',
+                display: props.text === '' ? 'absolute' : 'none',
               }}
             />
           </View>
