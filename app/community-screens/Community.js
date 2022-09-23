@@ -1,36 +1,23 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import React from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  FlatList,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icons from 'react-native-vector-icons/AntDesign';
+import FeedPost from './FeedPost';
+
+// data //
+import posts from '../../posts.json';
 
 // Theme //
 import { useColorScheme } from 'react-native';
 
 export default function Community({ navigation }) {
   const colorScheme = useColorScheme();
-  const [description, setDescription] = useState('');
-  // const insets = useSafeAreaInsets();
-  const [image, setImage] = useState(null);
-
-  const onPost = () => {
-    console.log(description);
-    setDescription('');
-  };
-
-  const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-
-    console.log(result);
-
-    if (!result.cancelled) {
-      setImage(result.uri);
-    }
-  };
 
   return (
     <View style={styles.mainContainer}>
@@ -58,12 +45,11 @@ export default function Community({ navigation }) {
           />
         </TouchableOpacity>
       </SafeAreaView>
-      <View
-        style={{ flex: 0.8, alignItems: 'center', justifyContent: 'center' }}
-      >
-        <Text style={{ fontFamily: 'fira-sans-bold' }}>
-          Coming Soon ... 🤔{' '}
-        </Text>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <FlatList
+          data={posts}
+          renderItem={({ item }) => <FeedPost post={item} />}
+        />
       </View>
     </View>
   );
@@ -80,6 +66,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    backgroundColor: 'white',
   },
   titleStyle: {
     fontSize: 35,
