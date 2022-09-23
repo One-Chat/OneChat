@@ -17,6 +17,10 @@ import Profile from './profile-screens/Profile';
 import Settings from './settings-screens/Settings';
 import MainCallsView from './call-screens/MainCallsView';
 import Community from './community-screens/Community';
+import Contact from './call-screens/Contact';
+import OutgoingCalls from './call-screens/calling-screens/OutgoingCalls';
+import IncomingCalls from './call-screens/calling-screens/IncomingCalls';
+import MainCallingScreen from './call-screens/calling-screens/MainCallingScreen';
 
 // Theme //
 import { useColorScheme } from 'react-native';
@@ -45,10 +49,38 @@ const ChatStackScreen = () => {
   );
 };
 
+/// Call Screens ////
+const CallStackScreen = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name='MainCallsView'
+        component={MainCallsView}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name='Contact'
+        component={Contact}
+        options={{ headerShown: false }}
+      />
+      <Stack.Group screenOptions={{ headerShown: false }}>
+        <Stack.Screen name='OutgoingCalls' component={OutgoingCalls} />
+        <Stack.Screen name='IncomingCalls' component={IncomingCalls} />
+        <Stack.Screen name='MainCallingScreen' component={MainCallingScreen} />
+      </Stack.Group>
+    </Stack.Navigator>
+  );
+};
+
 // Hide TabBar Function //
 const getRouteName = (route) => {
   const routeName = getFocusedRouteNameFromRoute(route);
-  if (routeName?.includes('ChatView')) {
+  if (
+    routeName?.includes('ChatView') ||
+    routeName?.includes('OutgoingCalls') ||
+    routeName?.includes('IncomingCalls') ||
+    routeName?.includes('MainCallingScreen')
+  ) {
     return 'none';
   }
   return 'absolute';
@@ -108,8 +140,19 @@ export default function MainControls() {
       />
       <Tab.Screen
         name='Calls'
-        component={MainCallsView}
-        options={{
+        component={CallStackScreen}
+        options={({ route }) => ({
+          tabBarStyle: {
+            display: getRouteName(route),
+            width: '80%',
+            position: 'absolute',
+            marginBottom: '10%',
+            borderRadius: 50,
+            overflow: 'hidden',
+            left: 40,
+            paddingBottom: 0,
+            justifyContent: 'space-around',
+          },
           headerShown: false,
           tabBarIcon: ({ focused }) =>
             !focused ? (
@@ -125,7 +168,7 @@ export default function MainControls() {
                 color={colorScheme === 'dark' ? 'white' : 'black'}
               />
             ),
-        }}
+        })}
       />
       <Tab.Screen
         name='Profile'

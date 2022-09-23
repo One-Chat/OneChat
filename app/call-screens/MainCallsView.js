@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Icons from 'react-native-vector-icons/AntDesign';
 
 // Navigation //
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
@@ -14,7 +14,7 @@ import { useColorScheme } from 'react-native';
 import AllCalls from './AllCalls';
 import MissCalls from './MissedCalls';
 
-export default function Calls() {
+export default function Calls({ navigation }) {
   const colorScheme = useColorScheme();
 
   return (
@@ -32,11 +32,11 @@ export default function Calls() {
         </Text>
         <TouchableOpacity
           onPress={() => {
-            alert('Settings for calls ...');
+            navigation.navigate('Contact');
           }}
         >
-          <Ionicons
-            name='ellipsis-vertical-sharp'
+          <Icons
+            name='contacts'
             size={25}
             style={{ right: 20 }}
             color={colorScheme === 'dark' ? 'white' : 'black'}

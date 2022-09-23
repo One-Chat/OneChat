@@ -101,7 +101,7 @@ export default function LoginScreen({ navigation }) {
               color: 'gray',
             }}
           >
-            ⎯⎯⎯⎯⎯⎯⎯ Or Log in with ⎯⎯⎯⎯⎯⎯⎯
+            ⎯⎯⎯ Or Log in with ⎯⎯⎯
           </Text>
           <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
             <Button>

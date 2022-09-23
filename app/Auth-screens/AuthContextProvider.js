@@ -12,6 +12,7 @@ import {
 // db //
 import { db } from '../../firebase';
 import { setDoc, doc, Timestamp, updateDoc } from 'firebase/firestore';
+import { Alert } from 'react-native';
 
 export const AuthContext = createContext();
 
@@ -36,6 +37,7 @@ export const AuthProvider = ({ children }) => {
             .catch((error) => {
               const errorMessage = error.message;
               console.log(errorMessage);
+              Alert.alert('Opps!', 'Email or password is incorrect.');
             });
         },
         // Sign up //
@@ -68,6 +70,20 @@ export const AuthProvider = ({ children }) => {
             .catch((error) => {
               const errorMessage = error.message;
               console.log(errorMessage);
+              if (errorMessage === 'Firebase: Error (auth/invalid-email).')
+                Alert.alert('Opps!', 'Please enter a valid email address');
+              else if (
+                errorMessage ===
+                'Firebase: Password should be at least 6 characters (auth/weak-password).'
+              )
+                Alert.alert(
+                  'Opps!',
+                  'Password should be at least 6 characters'
+                );
+              else if (
+                errorMessage === 'Firebase: Error (auth/email-already-in-use).'
+              )
+                Alert.alert('Opps!', 'Email has already been registered.');
             });
         },
         // Sign out //
