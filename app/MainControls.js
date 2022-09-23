@@ -17,6 +17,7 @@ import Profile from './profile-screens/Profile';
 import Settings from './settings-screens/Settings';
 import MainCallsView from './call-screens/MainCallsView';
 import Community from './community-screens/Community';
+import CreatePost from './community-screens/CreatePost';
 import Contact from './call-screens/Contact';
 import OutgoingCalls from './call-screens/calling-screens/OutgoingCalls';
 import IncomingCalls from './call-screens/calling-screens/IncomingCalls';
@@ -72,6 +73,18 @@ const CallStackScreen = () => {
   );
 };
 
+/// Community Screens ////
+const CommnuityStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Group screenOptions={{ headerShown: false }}>
+        <Stack.Screen name='Community' component={Community} />
+        <Stack.Screen name='CreatePost' component={CreatePost} />
+      </Stack.Group>
+    </Stack.Navigator>
+  );
+};
+
 // Hide TabBar Function //
 const getRouteName = (route) => {
   const routeName = getFocusedRouteNameFromRoute(route);
@@ -79,7 +92,8 @@ const getRouteName = (route) => {
     routeName?.includes('ChatView') ||
     routeName?.includes('OutgoingCalls') ||
     routeName?.includes('IncomingCalls') ||
-    routeName?.includes('MainCallingScreen')
+    routeName?.includes('MainCallingScreen') ||
+    routeName?.includes('CreatePost')
   ) {
     return 'none';
   }
@@ -187,9 +201,20 @@ export default function MainControls() {
         }}
       />
       <Tab.Screen
-        name='Community'
-        component={Community}
-        options={{
+        name='CommunityStack'
+        component={CommnuityStack}
+        options={({ route }) => ({
+          tabBarStyle: {
+            display: getRouteName(route),
+            width: '80%',
+            position: 'absolute',
+            marginBottom: '10%',
+            borderRadius: 50,
+            overflow: 'hidden',
+            left: 40,
+            paddingBottom: 0,
+            justifyContent: 'space-around',
+          },
           headerShown: false,
           tabBarIcon: ({ focused }) =>
             !focused ? (
@@ -205,7 +230,7 @@ export default function MainControls() {
                 color={colorScheme === 'dark' ? 'white' : 'black'}
               />
             ),
-        }}
+        })}
       />
       <Tab.Screen
         name='Settings'

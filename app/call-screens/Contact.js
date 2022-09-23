@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
+import Icons from 'react-native-vector-icons/MaterialIcons';
 
 // Theme //
 import { useColorScheme } from 'react-native';
@@ -48,6 +49,18 @@ export default function Contact({ navigation }) {
         >
           Contact
         </Text>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('MainCallsView');
+          }}
+        >
+          <Icons
+            name='close'
+            size={25}
+            style={{ right: 20 }}
+            color={colorScheme === 'dark' ? 'white' : 'black'}
+          />
+        </TouchableOpacity>
       </SafeAreaView>
       <FlatList
         data={contactList}
@@ -87,7 +100,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   titleContainer: {
-    flex: 0.07,
+    flex: 0.15,
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
