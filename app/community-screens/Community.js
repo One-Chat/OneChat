@@ -1,12 +1,24 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  FlatList,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Icons from 'react-native-vector-icons/AntDesign';
+import FeedPost from './FeedPost';
+
+// data //
+import posts from '../../posts.json';
 
 // Theme //
 import { useColorScheme } from 'react-native';
 
-export default function Community() {
+export default function Community({ navigation }) {
   const colorScheme = useColorScheme();
+
   return (
     <View style={styles.mainContainer}>
       <SafeAreaView style={styles.titleContainer}>
@@ -20,13 +32,24 @@ export default function Community() {
         >
           Community
         </Text>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('CreatePost');
+          }}
+        >
+          <Icons
+            name='edit'
+            size={25}
+            style={{ right: 20 }}
+            color={colorScheme === 'dark' ? 'white' : 'black'}
+          />
+        </TouchableOpacity>
       </SafeAreaView>
-      <View
-        style={{ flex: 0.8, alignItems: 'center', justifyContent: 'center' }}
-      >
-        <Text style={{ fontFamily: 'fira-sans-bold' }}>
-          Coming Soon ... 🤔{' '}
-        </Text>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <FlatList
+          data={posts}
+          renderItem={({ item }) => <FeedPost post={item} />}
+        />
       </View>
     </View>
   );
@@ -43,6 +66,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    backgroundColor: 'white',
   },
   titleStyle: {
     fontSize: 35,
