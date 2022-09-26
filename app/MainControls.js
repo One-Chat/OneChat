@@ -213,6 +213,7 @@ export default function MainControls() {
             overflow: 'hidden',
             left: 40,
             paddingBottom: 0,
+            borderTopWidth: 0,
             justifyContent: 'space-around',
           },
           headerShown: false,
